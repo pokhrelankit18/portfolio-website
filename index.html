@@ -1,112 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ankit's World</title>
-    <link rel="stylesheet" href="CSS/style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="left">ANKIT'S WORLD</div>
-            <div class="right">
-                <ul>
-                    <li><a href="#" >Home</a></li>
-                    <li><a href="#" >About</a></li>
-                    <li><a href="#" >Services</a></li>
-                    <li><a href="Journey" >Projects</a></li>
-                    <li><a href="#" >Contact Me</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <main>
-        <section class="firstSection">
-            <div class="leftSection">
-                Nameste! My name is
-                <span class="myname">ANKIT POKHREL</span>
-                <div>and I am a passionate</div>
-                <span id="element"></span>
-            </div>
-            <div class="RightSection">
-<img src="bg.png" alt="">
-            </div>
-        </section>
-        <section class="secondsection">
-           <div class="pastexp">
-            <h1>My Journey</h1>
-           </div>
-
-           <div class="horiline">
-            <div class="vertical">
-                <i class='bx bx-code img-top'></i>
-                <div class="verticaltitle">
-                    QBASIC(2016-2020)
-                </div>
-                <div class="vertical-desc">
-                    My coding journey commenced with the exploration of QBasic during my school years. The exposure ignited a genuine interest in programming, as I marveled at the impactful and creative potentials inherent in coding.
-                </div>
-            </div>
-            <div class="vertical">
-                <i class='bx bx-code-alt img-top'></i>
-                <div class="verticaltitle">
-                   C(2020-2023)
-                </div>
-                <div class="vertical-desc">
-                    Subsequently, I progressed to learning the C language, further intensifying my enthusiasm for programming.
-                </div>
-            </div>
-            <div class="vertical">
-                <i class='bx bxl-html5 img-top' style="color: rgb(227, 76, 38);"></i>
-                <div class="verticaltitle">
-                   HTML(2023-2024)
-                </div>
-                <div class="vertical-desc">
-After learning the basics of coding in school, I expanded my skills by diving into HTML. It was during this exploration of web development that my interest in programming grew even stronger.
-                </div>
-            </div>
-            <div class="vertical">
-                <i class='bx bxl-css3 img-top' style='color:#0d15f1' ></i>
-                <div class="verticaltitle">
-                    CSS(2023-2024)
-                </div>
-                <div class="vertical-desc">
-                    Subsequently, I delved into CSS, and it proved to be a turning point in my coding journey. The artistry and design capabilities inherent in CSS captivated me, and I found myself fully immersed in its aesthetic beauty.
-                </div>
-            </div>
-            <div class="vertical">
-                <i class='bx bxl-javascript img-top' style="color: orange;"></i>
-                <div class="verticaltitle">
-                    JAVA SCRIPT(2023-2024)
-                </div>
-                <div class="vertical-desc">
-                    After delving into CSS, I learned JavaScript to add functionality to my work, turning it into a beautiful piece of digital art. This experience heightened my passion for coding and sparked my curiosity to explore more.
-                </div>
-            </div>
-           </div>
-        </section>
-    </main>
-    <footer>
-        <div class="socials">
-            <ul>
-                <li><a href="https://www.facebook.com/profile.php?id=100025897566725" target="_blank" ><i class='bx bxl-facebook-circle'></i></a></li>
-                <li><a href="#"><i class='bx bxl-instagram'></i></a></li>
-                <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
-                <li><a href="https://www.linkedin.com/in/ankit-pokhrel-195181271/" target="_blank" ><i class='bx bxl-linkedin'></i></a></li>
-                <li><a href="https://github.com/pokhrelankit18" target="_blank"><i class='bx bxl-github'></i></a></li>
-                <li><a href="https://www.youtube.com/channel/UCZP6pI_aAYjSV1b5PBWLhtw" target="_blank"><i class='bx bxl-youtube' style='color:#ffffff' ></i></a></li>
-            </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaqueries.css" />
+  </head>
+  <body>
+    <nav id="desktop-nav">
+      <div class="logo">Ankit Pokhrel</div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+      <div class="logo">Ankit Pokhrel</div>
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+        <div class="menu-links">
+          <li><a href="#about" onclick="toggleMenu()">About</a></li>
+          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </div>
+      </div>
+    </nav>
+    <section id="profile">
+      <div class="section__pic-container">
+        <img src="./assets/profile-pic.jpg" alt="Ankit Pokhrel profile picture" class="pp" />
+      </div>
+      <div class="section__text">
+        <p class="section__text__p1">Hello, I'm</p>
+        <h1 class="title">Ankit Pokhrel</h1>
+        <p class="section__text__p2">Frontend Developer</p>
+        <div class="btn-container">
+          <button
+            class="btn btn-color-2"
+            onclick="window.open('./assets/resume-example.pdf')"
+          >
+            Download CV
+          </button>
+          <button class="btn btn-color-1" onclick="location.href='./#contact'">
+            Contact Info
+          </button>
+        </div>
+        <div id="socials-container">
+          <img
+            src="./assets/linkedin.png"
+            alt="My LinkedIn profile"
+            class="icon"
+            onclick="location.href='https://www.linkedin.com/in/ankitpokhrel' "
+          />
+          <img
+            src="./assets/github.png"
+            alt="My Github profile"
+            class="icon"
+            onclick="location.href='https://github.com/pokhrelankit18'"
+          />
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <p class="section__text__p1">Get To Know More</p>
+      <h1 class="title">About Me</h1>
+      <div class="section-container">
+        <div class="section__pic-container">
+          <img
+            src="./assets/about-pic.jpg"
+            alt="Profile picture"
+            class="about-pic"
+          />
+        </div>
+        <div class="about-details-container">
+          <div class="about-containers">
+            <div class="details-container">
+              <img
+                src="./assets/experience.png"
+                alt="Experience icon"
+                class="icon"
+              />
+              <h3>Experience</h3>
+              <p>6+ months <br />Frontend Development</p>
+            </div>
+            <div class="details-container">
+              <img
+                src="./assets/education.png"
+                alt="Education icon"
+                class="icon"
+              />
+              <h3>Education</h3>
+              <p>Computer Engineering<br /> Undergrad at Pulchowk</p>
+            </div>
+          </div>
+          <div class="text-container">
+            <p>
+              Hello! I'm a 19-year-old <strong>computer engineering</strong> student at <strong>Pulchowk College</strong>  in Nepal. I'm a passionate <strong>web developer</strong> with a strong foundation in coding. Committed to staying at the forefront of technological advancements, I'm eager to contribute to the dynamic field of computer engineering
+            </p>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#experience'"
+      />
+    </section>
+    <section id="experience">
+      <p class="section__text__p1">Explore My</p>
+      <h1 class="title">Experience</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container">
+            <h2 class="experience-sub-title">Frontend Development</h2>
+            <div class="article-container">
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>HTML</h3>
+                  <p>Experienced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>CSS</h3>
+                  <p>Experienced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>JavaScript</h3>
+                  <p>Basic</p>
+                </div>
+              </article>
+              <article>
+               <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>BootStrap</h3>
+                  <p>Basic</p>
+                </div>
+              </article> 
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>TailWind CSS</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>React</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="details-container">
+            <h2 class="experience-sub-title">Other Skills</h2>
+            <div class="article-container">
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Github</h3>
+                  <p>Intermidate</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Figma</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>ExpressJs</h3>
+                  <p>Basic</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Git</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="./assets/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>MS-EXCEL</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#projects'"
+      />
+    </section>
+    <section id="projects">
+      <p class="section__text__p1">Browse My Recent</p>
+      <h1 class="title">Projects</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/project-1.jpg"
+                alt="Currency Convertor"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Currency Convertor</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='https://github.com/pokhrelankit18/Currency-Converter.git'"
+              >
+                Github
+              </button>
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='https://serene-bublanina-8bf7f2.netlify.app/'"
+              >
+                Live Demo
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/project-2.png"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Rock Paper Scissor</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='https://github.com/pokhrelankit18/RockPaperScissor.git'"
+              >
+                Github
+              </button>
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='https://monumental-pudding-ed5695.netlify.app/'"
+              >
+                Live Demo
+              </button>
+            </div>
+          </div>
+          <!-- <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/project-3.png"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Project Three</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='https://github.com/'"
+              >
+                Github
+              </button>
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='https://github.com/'"
+              >
+                Live Demo
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#contact'"
+      />
+    </section>
+    <section id="contact">
+      <p class="section__text__p1">Get in Touch</p>
+      <h1 class="title">Contact Me</h1>
+      <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+          <img
+            src="./assets/email.png"
+            alt="Email icon"
+            class="icon contact-icon email-icon"
+          />
+          <p><a href="https://gmail.com">pokhrelankit2004@gmail.com</a></p>
+        </div>
+        <div class="contact-info-container">
+          <img
+            src="./assets/linkedin.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://www.linkedin.com/in/ankitpokhrel">LinkedIn</a></p>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <nav>
+        <div class="nav-links-container">
+          <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p>Copyright &#169; 2024  Ankit Pokhrel. All Rights Reserved.</p>
     </footer>
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-     <!-- Setup and start animation! -->
-  <script>
-    var typed = new Typed('#element', {
-      strings: ['Learner.','Innovator.','Problem Solver.','Creator.','Explorer.','Student.','Web Developer.'],
-      typeSpeed: 100,
-    });
-  </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
