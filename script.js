@@ -62,9 +62,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Function to open resume in a new tab
+// Function to download resume
 function openResume() {
-  window.open("./assets/Resume.pdf", "_blank");
+  const link = document.createElement('a');
+  link.href = './assets/Resume.pdf';
+  link.download = 'Ankit_Pokhrel_Resume.pdf'; // Custom filename for download
+  link.target = '_blank'; // Fallback to open in new tab if download fails
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  console.log('Resume download initiated');
 }
 
 // Function to open Gmail compose directly
