@@ -212,6 +212,30 @@ body {
   color: #333;
 }
 
+/* Momo icon styles */
+.momo-icon {
+  padding: 0;
+  overflow: hidden;
+}
+
+.momo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: grayscale(100%) contrast(1.2) brightness(0.8);
+  transition: all 0.3s ease;
+}
+
+.momo-icon:hover .momo-img {
+  filter: grayscale(100%) contrast(1.4) brightness(1);
+  transform: scale(1.1);
+}
+
+.momo-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 /* Action Buttons */
 .action-buttons {
   display: flex;
