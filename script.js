@@ -1,223 +1,476 @@
-// JavaScript for Personal Portfolio Website
+/* shared site script - every block guards on element existence
+   so the same file works across all pages */
 
-// Video Background Functions
-function handleVideoLoad() {
-  console.log("Video loaded successfully");
-  const video = document.getElementById("bg-video");
-  video.classList.add("loaded");
+/* ---------- cursor glow: gradient light that follows the mouse ---------- */
+if (
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+  !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+) {
+  const glow = document.createElement('div');
+  glow.className = 'cursor-glow';
+  document.body.appendChild(glow);
+
+  let mx = -600, my = -600;   // mouse position
+  let gx = -600, gy = -600;   // glow position (lags behind)
+  let shown = false;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    if (!shown) {
+      shown = true;
+      gx = mx; gy = my;
+      glow.style.opacity = '1';
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    shown = false;
+    glow.style.opacity = '0';
+  });
+
+  (function follow() {
+    gx += (mx - gx) * 0.07;
+    gy += (my - gy) * 0.07;
+    glow.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
+    requestAnimationFrame(follow);
+  })();
 }
 
-function handleVideoError() {
-  console.log("Video failed to load, using gradient background");
-  const video = document.getElementById("bg-video");
-  video.style.display = "none";
+/* ---------- mobile nav ---------- */
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('nav-mobile');
+
+if (burger && mobileNav) {
+  burger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
 }
 
-// Initialize video background
-document.addEventListener("DOMContentLoaded", function () {
-  const video = document.getElementById("bg-video");
+/* ---------- gallery: render figures from gallery-data.js ---------- */
+const galleryGrid = document.getElementById('gallery-grid');
 
-  // Check if device is mobile or has slow connection
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-  const isSlowConnection =
-    navigator.connection &&
-    navigator.connection.effectiveType &&
-    (navigator.connection.effectiveType === "slow-2g" ||
-      navigator.connection.effectiveType === "2g");
+if (galleryGrid && typeof GALLERY !== 'undefined') {
+  GALLERY.forEach(item => {
+    const fig = document.createElement('figure');
+    fig.className = 'g-item reveal' + (item.imgs.length > 1 ? ' g-slider' : '');
 
-  // Disable video on mobile or slow connections
-  if (isMobile || isSlowConnection) {
-    console.log(
-      "Mobile device or slow connection detected, using gradient background"
-    );
-    handleVideoError();
-    return;
-  }
+    const makeImg = (src, active) => {
+      const img = document.createElement('img');
+      img.src = './assets/gallery/web/' + src;
+      img.alt = item.title;
+      img.loading = 'lazy';
+      if (active) img.classList.add('active');
+      return img;
+    };
 
-  // Check if video can be played
-  if (video.canPlayType && video.canPlayType("video/mp4")) {
-    video.addEventListener("loadeddata", function () {
-      console.log("Video data loaded");
-      handleVideoLoad();
-    });
+    if (item.imgs.length > 1) {
+      const slides = document.createElement('div');
+      slides.className = 'g-slides';
+      item.imgs.forEach((src, i) => slides.appendChild(makeImg(src, i === 0)));
+      fig.appendChild(slides);
+      const dots = document.createElement('div');
+      dots.className = 'g-dots';
+      fig.appendChild(dots);
+    } else {
+      fig.appendChild(makeImg(item.imgs[0], false));
+    }
 
-    video.addEventListener("error", function () {
-      console.log("Video error occurred");
-      handleVideoError();
-    });
+    const cap = document.createElement('figcaption');
+    const tag = document.createElement('span');
+    tag.className = 'g-tag';
+    tag.textContent = item.tag;
+    const h3 = document.createElement('h3');
+    h3.textContent = item.title;
+    const p = document.createElement('p');
+    p.textContent = item.story;
+    cap.append(tag, h3, p);
+    fig.appendChild(cap);
 
-    // Timeout fallback - if video doesn't load in 5 seconds, hide it
-    setTimeout(() => {
-      if (!video.classList.contains("loaded")) {
-        console.log("Video loading timeout, using gradient background");
-        handleVideoError();
+    galleryGrid.appendChild(fig);
+  });
+}
+
+/* ---------- scroll reveal ---------- */
+const revealEls = document.querySelectorAll('.reveal');
+
+if (revealEls.length) {
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
       }
-    }, 5000);
-  } else {
-    console.log("Video format not supported, using gradient background");
-    handleVideoError();
-  }
-});
-
-// Function to download resume
-function openResume() {
-  const link = document.createElement('a');
-  link.href = './assets/Resume.pdf';
-  link.download = 'Ankit_Pokhrel_Resume.pdf'; // Custom filename for download
-  link.target = '_blank'; // Fallback to open in new tab if download fails
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  console.log('Resume download initiated');
+    }),
+    { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+  );
+  revealEls.forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 70}ms`;
+    io.observe(el);
+  });
 }
 
-// Function to open Gmail compose directly
-function contactMe() {
-  const email = "pokhrelankit2004@gmail.com";
+/* ---------- footer clock (NPT, UTC+5:45) ---------- */
+const clockEl = document.getElementById('foot-clock');
 
-  try {
-    // Open Gmail compose in browser directly
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
-    window.open(gmailUrl, "_blank");
-    console.log("Gmail compose opened successfully");
-  } catch (error) {
-    console.error("Error opening Gmail:", error);
-    // Fallback: try mailto
-    try {
-      window.location.href = `mailto:${email}`;
-      console.log("Email client opened successfully");
-    } catch (mailtoError) {
-      console.error("Error opening email client:", mailtoError);
-      // Final fallback: copy email to clipboard and alert user
-      navigator.clipboard
-        .writeText(email)
-        .then(() => {
-          alert(`Email address copied to clipboard: ${email}`);
-        })
-        .catch(() => {
-          alert(`Please contact me at: ${email}`);
-        });
-    }
-  }
+if (clockEl) {
+  const tickClock = () => {
+    const npt = new Date().toLocaleTimeString('en-GB', {
+      timeZone: 'Asia/Kathmandu',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+    clockEl.textContent = `${npt} npt`;
+  };
+  tickClock();
+  setInterval(tickClock, 1000);
 }
 
-// Add smooth scrolling behavior
-document.addEventListener("DOMContentLoaded", function () {
-  // Add click event listeners to all social icons
-  const socialIcons = document.querySelectorAll(".social-icon");
+/* ---------- marquee: duplicate track for seamless loop ---------- */
+const track = document.getElementById('marquee-track');
 
-  socialIcons.forEach((icon) => {
-    icon.addEventListener("click", function (e) {
-      // Add a small animation on click
-      this.style.transform = "scale(0.95)";
-      setTimeout(() => {
-        this.style.transform = "";
-      }, 150);
-    });
-  });
-
-  // Add click event listeners to buttons
-  const buttons = document.querySelectorAll(".btn");
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", function () {
-      // Add a small animation on click
-      this.style.transform = "scale(0.95)";
-      setTimeout(() => {
-        this.style.transform = "";
-      }, 150);
-    });
-  });
-
-  // Add parallax effect to profile image
-  const profileImg = document.getElementById("profile-pic");
-  let mouseX = 0;
-  let mouseY = 0;
-
-  document.addEventListener("mousemove", function (e) {
-    mouseX = e.clientX / window.innerWidth;
-    mouseY = e.clientY / window.innerHeight;
-
-    const translateX = (mouseX - 0.5) * 10;
-    const translateY = (mouseY - 0.5) * 10;
-
-    profileImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(1)`;
-  });
-
-  // Reset profile image position when mouse leaves
-  document.addEventListener("mouseleave", function () {
-    profileImg.style.transform = "translate(0, 0) scale(1)";
-  });
-});
-
-// Add typing effect to the name (optional enhancement)
-function typeWriter(element, text, speed = 100) {
-  let i = 0;
-  element.innerHTML = "";
-
-  function type() {
-    if (i < text.length) {
-      element.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, speed);
-    }
-  }
-
-  type();
+if (track) {
+  track.innerHTML += track.innerHTML;
 }
 
-// Initialize typing effect when page loads
-window.addEventListener("load", function () {
-  const nameElement = document.querySelector(".name");
-  const roleElement = document.querySelector(".role");
-  const originalNameText = nameElement.textContent;
-  const originalRoleText = roleElement.textContent;
+/* ---------- gallery sliders: auto-scroll groups from the same event ---------- */
+document.querySelectorAll('.g-slider').forEach(slider => {
+  const imgs = slider.querySelectorAll('.g-slides img');
+  const dotsBox = slider.querySelector('.g-dots');
+  if (imgs.length < 2 || !dotsBox) return;
 
-  // Add a small delay before starting the typing effect
-  setTimeout(() => {
-    typeWriter(nameElement, originalNameText, 150);
-    // Start role typing after name is finished
-    setTimeout(() => {
-      typeWriter(roleElement, originalRoleText, 100);
-    }, originalNameText.length * 150 + 300);
-  }, 500);
-});
+  let idx = 0;
+  let paused = false;
 
-// Add keyboard navigation
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Enter" || e.key === " ") {
-    const focusedElement = document.activeElement;
+  imgs.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation();
+      show(i);
+    });
+    dotsBox.appendChild(dot);
+  });
 
-    if (
-      focusedElement.classList.contains("social-icon") ||
-      focusedElement.classList.contains("btn")
-    ) {
-      focusedElement.click();
-    }
+  const dots = dotsBox.querySelectorAll('span');
+
+  function show(i) {
+    imgs[idx].classList.remove('active');
+    dots[idx].classList.remove('active');
+    idx = i % imgs.length;
+    imgs[idx].classList.add('active');
+    dots[idx].classList.add('active');
   }
+
+  slider.addEventListener('mouseenter', () => { paused = true; });
+  slider.addEventListener('mouseleave', () => { paused = false; });
+
+  setInterval(() => { if (!paused) show(idx + 1); }, 3500);
 });
 
-// Add accessibility improvements
-document.addEventListener("DOMContentLoaded", function () {
-  // Add tabindex to interactive elements
-  const interactiveElements = document.querySelectorAll(".social-icon, .btn");
+/* ---------- gallery: tap toggles story on touch devices ---------- */
+const galleryItems = document.querySelectorAll('.g-item');
 
-  interactiveElements.forEach((element, index) => {
-    element.setAttribute("tabindex", index + 1);
-  });
-
-  // Add focus indicators
-  interactiveElements.forEach((element) => {
-    element.addEventListener("focus", function () {
-      this.style.outline = "2px solid rgba(255, 255, 255, 0.5)";
-      this.style.outlineOffset = "2px";
-    });
-
-    element.addEventListener("blur", function () {
-      this.style.outline = "none";
+if (galleryItems.length && window.matchMedia('(hover: none)').matches) {
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      galleryItems.forEach(o => { if (o !== item) o.classList.remove('show'); });
+      item.classList.toggle('show');
     });
   });
-});
+}
+
+/* ---------- hero terminal: scripted intro, then interactive (home only) ---------- */
+const termBody = document.getElementById('term-body');
+
+if (termBody) {
+  const PROMPT = '<span class="prompt">ankit@pulchowk<span class="path">:~$</span></span> ';
+
+  const PAGES = {
+    home: './', projects: './projects.html', about: './about.html',
+    gallery: './gallery.html', contact: './contact.html',
+  };
+
+  const print = (html, cls = 'out') => {
+    const ln = document.createElement('div');
+    ln.className = 'ln ' + cls;
+    ln.innerHTML = html;
+    termBody.appendChild(ln);
+    termBody.scrollTop = termBody.scrollHeight;
+  };
+
+  const goTo = (page) => {
+    print(`opening <span class="key">${page}</span> ...`);
+    setTimeout(() => { window.location.href = PAGES[page]; }, 450);
+  };
+
+  const COMMANDS = {
+    help: () => print(
+      [
+        '<span class="key">help</span>           list all commands',
+        '<span class="key">cd</span> &lt;page&gt;      go to a page (home, projects, about, gallery, contact)',
+        '<span class="key">open</span> &lt;page&gt;    same as cd',
+        '<span class="key">ls</span>             list pages',
+        '<span class="key">whoami</span>         about me, the short version',
+        '<span class="key">cat</span> &lt;file&gt;     read focus.txt, about.md, or hobbies.txt',
+        '<span class="key">uptime</span>         the numbers so far',
+        '<span class="key">socials</span>        where to find me',
+        '<span class="key">resume</span>         download resume.pdf',
+        '<span class="key">neofetch</span>       system info',
+        '<span class="key">date</span>           current time (npt)',
+        '<span class="key">echo</span> &lt;text&gt;    say it back',
+        '<span class="key">clear</span>          clean the screen',
+        '<span class="key">sudo</span> ...        try it',
+      ].join('<br/>')
+    ),
+
+    whoami: () => print('ankit · <span class="key">ml engineer</span> in training, shipping anyway'),
+
+    ls: () => print('home/&nbsp;&nbsp;projects/&nbsp;&nbsp;about/&nbsp;&nbsp;gallery/&nbsp;&nbsp;contact/&nbsp;&nbsp;<span class="key">resume.pdf</span>'),
+
+    uptime: () => print('coding for 2+ years · 10+ projects shipped · 2 hackathon awards'),
+
+    socials: () => print(
+      'github: <a href="https://github.com/ankitpokhrel08" target="_blank" rel="noopener">ankitpokhrel08</a> · ' +
+      'linkedin: <a href="https://www.linkedin.com/in/ankitpokhrel/" target="_blank" rel="noopener">ankitpokhrel</a> · ' +
+      'x: <a href="https://x.com/_pokhrelankit" target="_blank" rel="noopener">@_pokhrelankit</a> · ' +
+      'medium: <a href="https://medium.com/@pokhrelankit" target="_blank" rel="noopener">@pokhrelankit</a>'
+    ),
+
+    resume: () => {
+      print('downloading <span class="key">resume.pdf</span> ...');
+      const a = document.createElement('a');
+      a.href = './assets/Resume.pdf';
+      a.download = 'Ankit_Pokhrel_Resume.pdf';
+      a.click();
+    },
+
+    neofetch: () => {
+      // two-tone frames: dim structure, lit pulse (<b> = accent color)
+      const lit = s => `<b>${s}</b>`;
+      const n = on => (on ? lit('●') : '○');
+      const e = st => (st === 'f' ? lit('━━━━▸') : st === 'b' ? lit('◂━━━━') : '─────');
+      const dg = (on, s) => (on ? lit(s) : s);
+
+      const net = (l0, l1, l2, e01, e12, out, label) => {
+        const x1 = e01 !== '-';
+        const x2 = e12 !== '-';
+        const nodeRow = tail =>
+          ` ${n(l0)}${e(e01)}${n(l1)}${e(e12)}${n(l2)}${tail}`;
+        return [
+          nodeRow(''),
+          `   ${dg(x1, '╲ ╱')}   ${dg(x2, '╲ ╱')}`,
+          `    ${dg(x1, '╳')}     ${dg(x2, '╳')}`,
+          `   ${dg(x1, '╱ ╲')}   ${dg(x2, '╱ ╲')}`,
+          nodeRow(out ? lit('──▶ ŷ = 0.97') : '──▶ ŷ = ?   '),
+          `   ${dg(x1, '╲ ╱')}   ${dg(x2, '╲ ╱')}`,
+          `    ${dg(x1, '╳')}     ${dg(x2, '╳')}`,
+          `   ${dg(x1, '╱ ╲')}   ${dg(x2, '╱ ╲')}`,
+          nodeRow(''),
+          ``,
+          ` ${lit(label.padEnd(18))}`,
+        ].join('\n');
+      };
+
+      const FRAMES = [
+        net(true,  false, false, '-', '-', false, 'forward ▸'),
+        net(false, false, false, 'f', '-', false, 'forward ▸▸'),
+        net(false, true,  false, '-', '-', false, 'forward ▸▸'),
+        net(false, false, false, '-', 'f', false, 'forward ▸▸▸'),
+        net(false, false, true,  '-', '-', true,  'prediction ✓'),
+        net(false, false, false, '-', 'b', true,  '◂ backprop'),
+        net(false, true,  false, '-', '-', false, '◂◂ backprop'),
+        net(false, false, false, 'b', '-', false, '◂◂◂ backprop'),
+        net(true,  false, false, '-', '-', false, 'weights updated ✓'),
+      ];
+
+      const wrap = document.createElement('div');
+      wrap.className = 'ln neo';
+      wrap.innerHTML =
+        '<div class="neo-info">' +
+          '<div class="neo-title">ankit@pulchowk</div>' +
+          '<div class="neo-sep">──────────────</div>' +
+          '<div><span class="nk">os</span>      student-os 4.0</div>' +
+          '<div><span class="nk">host</span>    ioe pulchowk campus</div>' +
+          '<div><span class="nk">kernel</span>  ai/ml 24.7</div>' +
+          '<div><span class="nk">shell</span>   python &gt; everything</div>' +
+          '<div><span class="nk">uptime</span>  2+ years of code</div>' +
+          '<div><span class="nk">memory</span>  80% models, 20% momo</div>' +
+          '<div class="neo-pal">' +
+            ['#ff5f56','#ffbd2e','#27c93f','#8ab4ff','#ffb454','#b8b8bd','#6e6e78','#f2f2f0']
+              .map(c => `<span style="background:${c}"></span>`).join('') +
+          '</div>' +
+        '</div>' +
+        '<pre class="neo-art"></pre>';
+      termBody.appendChild(wrap);
+      termBody.scrollTop = termBody.scrollHeight;
+
+      const art = wrap.querySelector('.neo-art');
+      let fi = 0;
+      art.innerHTML = FRAMES[0];
+      const iv = setInterval(() => {
+        if (!art.isConnected) { clearInterval(iv); return; }
+        fi = (fi + 1) % FRAMES.length;
+        art.innerHTML = FRAMES[fi];
+      }, 460);
+    },
+
+    date: () => print(
+      new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kathmandu', dateStyle: 'full', timeStyle: 'medium' }) + ' npt'
+    ),
+
+    pwd: () => print('/home/ankit'),
+
+    clear: () => { termBody.innerHTML = ''; },
+
+    exit: () => print("nice try. you're staying."),
+
+    hello: () => print('hello! type <span class="key">help</span> to see what I can do.'),
+    hi:    () => print('hi there! type <span class="key">help</span> to see what I can do.'),
+  };
+
+  const CAT_FILES = {
+    'focus.txt': '<span class="key">deep-learning</span> · <span class="key">nlp</span> · <span class="key">end-to-end ml systems</span>',
+    'about.md': 'computer engineering undergrad @ ioe pulchowk. builds rag pipelines, transformers, and cv systems. secretary @ it club pulchowk. full story: <a href="./about.html">./about</a>',
+    'hobbies.txt': '<span class="key">cricket</span> (watching + shouting) · <span class="key">music</span> · <span class="key">bike rides</span> · <span class="key">travel</span> · building solutions to whatever crosses my mind',
+  };
+
+  const run = (raw) => {
+    const input = raw.trim();
+    if (!input) return;
+
+    const [cmd, ...args] = input.split(/\s+/);
+    const arg = (args[0] || '').replace(/^\.\//, '').replace(/\/$/, '').toLowerCase();
+
+    if (cmd === 'cd' || cmd === 'open' || cmd === 'goto') {
+      if (!arg) { print('usage: ' + cmd + ' &lt;page&gt; · pages: home, projects, about, gallery, contact'); return; }
+      if (arg === '~' || arg === '..') { goTo('home'); return; }
+      if (PAGES[arg]) { goTo(arg); return; }
+      print(`${cmd}: no such page: <span class="key">${arg}</span> · try <span class="key">ls</span>`, 'out err');
+      return;
+    }
+
+    if (cmd === 'cat') {
+      if (CAT_FILES[args[0]]) { print(CAT_FILES[args[0]]); return; }
+      print(`cat: ${args[0] || ''}: no such file · try <span class="key">focus.txt</span>, <span class="key">about.md</span>, or <span class="key">hobbies.txt</span>`, 'out err');
+      return;
+    }
+
+    if (cmd === 'echo') { print(args.join(' ') || ''); return; }
+
+    if (cmd === 'sudo') {
+      print('ankit is not in the sudoers file. this incident will be reported.', 'out err');
+      return;
+    }
+
+    // direct page name also routes: "projects" -> projects page
+    if (PAGES[cmd.toLowerCase()] && args.length === 0) { goTo(cmd.toLowerCase()); return; }
+
+    if (COMMANDS[cmd.toLowerCase()]) { COMMANDS[cmd.toLowerCase()](); return; }
+
+    print(`command not found: <span class="key">${cmd}</span> · type <span class="key">help</span>`, 'out err');
+  };
+
+  /* --- interactive prompt --- */
+  const history = [];
+  let hIdx = -1;
+  let inputLine = null;
+
+  const newPrompt = (focus = false) => {
+    inputLine = document.createElement('div');
+    inputLine.className = 'ln';
+    inputLine.innerHTML = PROMPT;
+    const input = document.createElement('input');
+    input.className = 'term-input';
+    input.type = 'text';
+    input.autocomplete = 'off';
+    input.autocapitalize = 'off';
+    input.spellcheck = false;
+    input.setAttribute('aria-label', 'terminal input');
+    inputLine.appendChild(input);
+    termBody.appendChild(inputLine);
+    termBody.scrollTop = termBody.scrollHeight;
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = input.value;
+        inputLine.innerHTML = PROMPT + '<span class="cmd"></span>';
+        inputLine.querySelector('.cmd').textContent = val;
+        if (val.trim()) { history.unshift(val); }
+        hIdx = -1;
+        run(val);
+        newPrompt(true);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (hIdx < history.length - 1) { hIdx++; input.value = history[hIdx]; }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (hIdx > 0) { hIdx--; input.value = history[hIdx]; }
+        else { hIdx = -1; input.value = ''; }
+      }
+    });
+
+    if (focus) input.focus({ preventScroll: true });
+  };
+
+  // clicking anywhere in the terminal focuses the input
+  termBody.closest('.term').addEventListener('click', () => {
+    inputLine?.querySelector('input')?.focus({ preventScroll: true });
+  });
+
+  /* --- scripted intro, then hand over to the user --- */
+  const SCRIPT = [
+    { type: 'cmd', text: 'whoami' },
+    { type: 'out', html: 'ankit · <span class="key">ml engineer</span> in training, shipping anyway' },
+    { type: 'cmd', text: 'cat ./focus.txt' },
+    { type: 'out', html: CAT_FILES['focus.txt'] },
+    { type: 'out', html: '<span class="dim-hint">type <span class="key">help</span> for commands · <span class="key">cd projects</span> to navigate</span>' },
+  ];
+
+  let li = 0;
+
+  const typeCmd = (ln, text, done) => {
+    let ci = 0;
+    const caret = '<span class="caret"></span>';
+    const step = () => {
+      ci++;
+      ln.innerHTML = PROMPT + '<span class="cmd">' + text.slice(0, ci) + '</span>' + caret;
+      if (ci < text.length) {
+        setTimeout(step, 38 + Math.random() * 52);
+      } else {
+        setTimeout(() => {
+          ln.innerHTML = PROMPT + '<span class="cmd">' + text + '</span>';
+          done();
+        }, 220);
+      }
+    };
+    setTimeout(step, 160);
+  };
+
+  const next = () => {
+    if (li >= SCRIPT.length) { newPrompt(); return; }
+    const item = SCRIPT[li++];
+
+    if (item.type === 'cmd') {
+      const ln = document.createElement('div');
+      ln.className = 'ln';
+      ln.innerHTML = PROMPT + '<span class="caret"></span>';
+      termBody.appendChild(ln);
+      typeCmd(ln, item.text, () => setTimeout(next, 120));
+    } else {
+      print(item.html);
+      setTimeout(next, 300);
+    }
+  };
+
+  const startIO = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      startIO.disconnect();
+      setTimeout(next, 500);
+    }
+  });
+  startIO.observe(termBody);
+}

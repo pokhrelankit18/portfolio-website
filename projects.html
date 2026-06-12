@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Ankit Pokhrel</title>
+  <meta name="description" content="Projects by Ankit Pokhrel: AI legal assistants, transformers from scratch, civic tech, audio ML, and NDN security research." />
+  <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="./" class="nav-logo"><span class="tilde">~</span><span class="slash">/</span>ankit</a>
+      <div class="nav-links">
+        <a href="./">home</a>
+        <a href="./projects.html" class="active">projects</a>
+        <a href="./about.html">about</a>
+        <a href="./gallery.html">gallery</a>
+        <a href="./contact.html">contact</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="./">home</a>
+    <a href="./projects.html" class="active">projects</a>
+    <a href="./about.html">about</a>
+    <a href="./gallery.html">gallery</a>
+    <a href="./contact.html">contact</a>
+  </div>
+
+  <main>
+
+    <div class="page-head">
+      <div class="crumb"><b>~/ankit</b> $ ls ./projects --all</div>
+      <h1>Things I've built.</h1>
+      <p>Research, AI applications, and full-stack systems, each one shipped, not just started.</p>
+    </div>
+
+    <div class="grid-2">
+
+      <article class="card card-wide reveal">
+        <div class="card-top">
+          <span class="card-index">[01]</span>
+          <span class="card-type">research</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/ndn_research_work" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>NDN Anomaly Detection: Interest Flooding &amp; Cache Pollution</h3>
+        <p>
+          Research under <b>Prof. Babu Ram Dhawadi</b>: unsupervised detection of Interest
+          Flooding and Cache Pollution attacks in Named Data Networking. One <b>Isolation
+          Forest</b> detector, two independent tracks: miniNDN emulation (PIT-level features)
+          and ndnSIM simulation (face-level tracer counters only). <b>100% attacker detection
+          with ~0% held-out false positives</b> across tree, dumbbell, and DFN topologies.
+          Paper draft in progress.
+        </p>
+        <div class="card-tags">
+          <span>python</span><span>isolation-forest</span><span>minindn</span><span>ndnsim</span><span>unsupervised-ml</span>
+        </div>
+        <div class="card-status">ongoing research</div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[02]</span>
+          <span class="card-type">computer vision</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/mama" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>mama: Vehicle Speed Detection</h3>
+        <p>
+          Automated roadside speed enforcement built for <b>Nepal traffic police</b>.
+          YOLOv11x detection + ByteTrack tracking, perspective-corrected speed estimation,
+          number-plate reading via <b>PaddleOCR</b>, and automatic evidence capture:
+          vehicle image, plate crop, annotated clip, all into a FastAPI + PostgreSQL backend.
+        </p>
+        <div class="card-tags">
+          <span>yolov11</span><span>bytetrack</span><span>paddleocr</span><span>opencv</span><span>fastapi</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[03]</span>
+          <span class="card-type">pypi package</span>
+          <div class="card-links">
+            <a href="https://pypi.org/project/ragchatbot/" target="_blank" rel="noopener" aria-label="PyPI"><i class="fas fa-box"></i></a>
+            <a href="https://github.com/ankitpokhrel08/ragchatbot" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>ragchatbot</h3>
+        <p>
+          <b>Published Python package</b>: add a semantic-search chatbot to any website
+          in minutes: <code>pip install ragchatbot</code>. Drop in your docs, run guided
+          setup, get a grounded Q&amp;A API. Supports <b>Gemini, OpenAI, or local Ollama</b>
+          backends, no ML experience required.
+        </p>
+        <div class="card-tags">
+          <span>python</span><span>rag</span><span>semantic-search</span><span>cli</span><span>pypi</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[04]</span>
+          <span class="card-type">deep learning / nlp</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/transformer_implementation" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>Sanskrit → English Neural Translation</h3>
+        <p>
+          Character-level <b>encoder-decoder Transformer built from scratch in PyTorch</b>
+          (Vaswani et al.) translating Devanagari Sanskrit to English, with 6+6 layers,
+          8 attention heads, d_model 512, checkpoint-resumable training with BLEU
+          evaluation, running on Apple Silicon via MPS.
+        </p>
+        <div class="card-tags">
+          <span>pytorch</span><span>transformer</span><span>nmt</span><span>sanskrit</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[05]</span>
+          <span class="card-type">computer vision</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/padel_game_analytics" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>Padel Game Analytics</h3>
+        <p>
+          CV pipeline that analyses padel match video in real time: <b>YOLOv8</b> player
+          detection, <b>TrackNet</b> ball tracking, <b>MediaPipe</b> pose estimation,
+          shot-type classification, and a live annotated scoreboard overlay.
+        </p>
+        <div class="card-tags">
+          <span>yolov8</span><span>tracknet</span><span>mediapipe</span><span>opencv</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[06]</span>
+          <span class="card-type">ai / rag</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/Kanun_Sathi" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>Kanun Sathi: AI Legal Assistant</h3>
+        <p>
+          <b>Bilingual (Nepali/English)</b> AI legal assistant giving constitutionally
+          grounded answers for Nepali citizens. RAG pipeline with LangChain + Gemini,
+          FastAPI backend, PostgreSQL document and query store.
+        </p>
+        <div class="card-tags">
+          <span>fastapi</span><span>langchain</span><span>rag</span><span>gemini</span><span>postgresql</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[07]</span>
+          <span class="card-type">nlp platform</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/nlp_project" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>Nepali NLP Platform</h3>
+        <p>
+          Web platform showcasing NLP models for the <b>Nepali language</b>, spoken by
+          30M+ people yet underrepresented in NLP. React + Flask + Hugging Face
+          Transformers, Dockerised and cloud-deployed.
+        </p>
+        <div class="card-tags">
+          <span>react</span><span>flask</span><span>huggingface</span><span>docker</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[08]</span>
+          <span class="card-type">full-stack / mobile</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/nagarik-suchana" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>Nagarik Suchana</h3>
+        <p>
+          Civic engagement app connecting citizens with local authorities: notices,
+          grievances, governance transparency. Auth, admin dashboard, <b>English/Nepali
+          support</b>, OCR via Tesseract.js, Docker-containerised services.
+        </p>
+        <div class="card-tags">
+          <span>react-native</span><span>node.js</span><span>postgresql</span><span>docker</span><span>ocr</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[09]</span>
+          <span class="card-type">audio ml / app</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/infant_cry_classification" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>Infant Cry Classification</h3>
+        <p>
+          Cross-platform app classifying infant cries (hungry, tired, discomfort) from
+          uploaded or recorded audio. <b>LSTM model exported to TFLite</b>, served by a
+          Flask API to a React Native (Expo) frontend with a consistent MFCC pipeline
+          end to end.
+        </p>
+        <div class="card-tags">
+          <span>tensorflow</span><span>lstm</span><span>tflite</span><span>react-native</span><span>flask</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[10]</span>
+          <span class="card-type">agents / mcp</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/MCP-Servers" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>MCP Multi-Server Chat</h3>
+        <p>
+          Chatbot wired to multiple <b>Model Context Protocol</b> servers: local math
+          tools, a remote expense tracker, and <b>Manim animation generation</b>, all through
+          a LangChain MCP client with a Streamlit UI.
+        </p>
+        <div class="card-tags">
+          <span>mcp</span><span>langchain</span><span>streamlit</span><span>manim</span>
+        </div>
+      </article>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <span>lalitpur, np</span>
+      <span id="foot-clock"></span>
+      <div class="foot-right">
+        <a href="https://github.com/ankitpokhrel08/portfolio-website" target="_blank" rel="noopener">src</a>
+        <span>© 2025 ankit pokhrel</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
