@@ -1,40 +1,112 @@
 /* shared site script - every block guards on element existence
    so the same file works across all pages */
 
-/* ---------- cursor glow: gradient light that follows the mouse ---------- */
+/* ---------- cursor trails: elastic tendrils following the mouse ---------- */
 if (
   window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
   !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 ) {
-  const glow = document.createElement('div');
-  glow.className = 'cursor-glow';
-  document.body.appendChild(glow);
+  const CFG = { trails: 10, size: 30, friction: 0.5, dampening: 0.3, tension: 0.98 };
+  const mouse = { x: -100, y: -100 };
+  let ctx, trails = [], raf = null, started = false;
 
-  let mx = -600, my = -600;   // mouse position
-  let gx = -600, gy = -600;   // glow position (lags behind)
-  let shown = false;
+  // slow hue oscillation around the site's amber (≈35), drifting toward gold
+  const hue = { phase: Math.random() * Math.PI * 2 };
+  const hueNow = () => 35 + Math.sin((hue.phase += 0.0015)) * 18;
+
+  class Node { constructor() { this.x = mouse.x; this.y = mouse.y; this.vx = 0; this.vy = 0; } }
+
+  class Trail {
+    constructor(spring) {
+      this.spring = spring + Math.random() * 0.1 - 0.02;
+      this.friction = CFG.friction + Math.random() * 0.01 - 0.002;
+      this.nodes = Array.from({ length: CFG.size }, () => new Node());
+    }
+    update() {
+      let spring = this.spring;
+      const first = this.nodes[0];
+      first.vx += (mouse.x - first.x) * spring;
+      first.vy += (mouse.y - first.y) * spring;
+      for (let i = 0; i < this.nodes.length; i++) {
+        const n = this.nodes[i];
+        if (i > 0) {
+          const p = this.nodes[i - 1];
+          n.vx += (p.x - n.x) * spring;
+          n.vy += (p.y - n.y) * spring;
+          n.vx += p.vx * CFG.dampening;
+          n.vy += p.vy * CFG.dampening;
+        }
+        n.vx *= this.friction;
+        n.vy *= this.friction;
+        n.x += n.vx;
+        n.y += n.vy;
+        spring *= CFG.tension;
+      }
+    }
+    draw() {
+      let x = this.nodes[0].x, y = this.nodes[0].y;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      let i = 1;
+      for (; i < this.nodes.length - 2; i++) {
+        const a = this.nodes[i], b = this.nodes[i + 1];
+        x = (a.x + b.x) * 0.5;
+        y = (a.y + b.y) * 0.5;
+        ctx.quadraticCurveTo(a.x, a.y, x, y);
+      }
+      const a = this.nodes[i], b = this.nodes[i + 1];
+      ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
+      ctx.stroke();
+      ctx.closePath();
+    }
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'cursor-trails';
+  document.body.appendChild(canvas);
+  ctx = canvas.getContext('2d');
+
+  const resize = () => {
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.scale(dpr, dpr);
+  };
+  resize();
+  window.addEventListener('resize', resize);
+
+  const render = () => {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.strokeStyle = `hsla(${Math.round(hueNow())}, 85%, 60%, 0.14)`;
+    ctx.lineWidth = 1;
+    for (const t of trails) { t.update(); t.draw(); }
+    raf = requestAnimationFrame(render);
+  };
 
   document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-    if (!shown) {
-      shown = true;
-      gx = mx; gy = my;
-      glow.style.opacity = '1';
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    if (!started) {
+      started = true;
+      trails = Array.from(
+        { length: CFG.trails },
+        (_, i) => new Trail(0.4 + (i / CFG.trails) * 0.025)
+      );
+      render();
     }
   });
 
-  document.addEventListener('mouseleave', () => {
-    shown = false;
-    glow.style.opacity = '0';
+  // pause when the tab is hidden, resume on return
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (raf) cancelAnimationFrame(raf);
+      raf = null;
+    } else if (started && !raf) {
+      render();
+    }
   });
-
-  (function follow() {
-    gx += (mx - gx) * 0.07;
-    gy += (my - gy) * 0.07;
-    glow.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
-    requestAnimationFrame(follow);
-  })();
 }
 
 /* ---------- mobile nav ---------- */
@@ -425,8 +497,6 @@ if (termBody) {
   const SCRIPT = [
     { type: 'cmd', text: 'whoami' },
     { type: 'out', html: 'ankit · <span class="key">ml engineer</span> in training, shipping anyway' },
-    { type: 'cmd', text: 'cat ./focus.txt' },
-    { type: 'out', html: CAT_FILES['focus.txt'] },
     { type: 'out', html: '<span class="dim-hint">type <span class="key">help</span> for commands · <span class="key">cd projects</span> to navigate</span>' },
   ];
 
