@@ -451,7 +451,11 @@ if (termBody) {
   };
 
   const next = () => {
-    if (li >= SCRIPT.length) { newPrompt(); return; }
+    if (li >= SCRIPT.length) {
+      sessionStorage.setItem('term-intro-done', '1');
+      newPrompt();
+      return;
+    }
     const item = SCRIPT[li++];
 
     if (item.type === 'cmd') {
@@ -466,11 +470,28 @@ if (termBody) {
     }
   };
 
-  const startIO = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      startIO.disconnect();
-      setTimeout(next, 500);
-    }
-  });
-  startIO.observe(termBody);
+  // replay the typed intro only once per browser session; on return visits
+  // render the finished transcript instantly and go straight to the prompt
+  if (sessionStorage.getItem('term-intro-done')) {
+    SCRIPT.forEach(item => {
+      if (item.type === 'cmd') {
+        const ln = document.createElement('div');
+        ln.className = 'ln';
+        ln.innerHTML = PROMPT + '<span class="cmd"></span>';
+        ln.querySelector('.cmd').textContent = item.text;
+        termBody.appendChild(ln);
+      } else {
+        print(item.html);
+      }
+    });
+    newPrompt();
+  } else {
+    const startIO = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        startIO.disconnect();
+        setTimeout(next, 500);
+      }
+    });
+    startIO.observe(termBody);
+  }
 }
