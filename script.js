@@ -259,7 +259,7 @@ if (galleryItems.length && window.matchMedia('(hover: none)').matches) {
 const termBody = document.getElementById('term-body');
 
 if (termBody) {
-  const PROMPT = '<span class="prompt">ankit@pulchowk<span class="path">:~$</span></span> ';
+  const PROMPT = '<span class="prompt">ankitpokhrel<span class="path">:~$</span></span> ';
 
   const PAGES = {
     home: './', projects: './projects.html', about: './about.html',
@@ -303,7 +303,7 @@ if (termBody) {
 
     ls: () => print('home/&nbsp;&nbsp;projects/&nbsp;&nbsp;about/&nbsp;&nbsp;gallery/&nbsp;&nbsp;contact/&nbsp;&nbsp;<span class="key">resume.pdf</span>'),
 
-    uptime: () => print('coding for 2+ years · 10+ projects shipped · 2 hackathon awards'),
+    uptime: () => print('ml intern @ layman ai · coding for 2+ years · 10+ projects shipped · 2 hackathon awards'),
 
     socials: () => print(
       'github: <a href="https://github.com/ankitpokhrel08" target="_blank" rel="noopener">ankitpokhrel08</a> · ' +
@@ -363,7 +363,7 @@ if (termBody) {
       wrap.className = 'ln neo';
       wrap.innerHTML =
         '<div class="neo-info">' +
-          '<div class="neo-title">ankit@pulchowk</div>' +
+          '<div class="neo-title">ankitpokhrel</div>' +
           '<div class="neo-sep">──────────────</div>' +
           '<div><span class="nk">os</span>      student-os 4.0</div>' +
           '<div><span class="nk">host</span>    ioe pulchowk campus</div>' +

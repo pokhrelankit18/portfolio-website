@@ -7,7 +7,8 @@
   <meta name="description" content="Projects by Ankit Pokhrel: AI legal assistants, transformers from scratch, civic tech, audio ML, and NDN security research." />
   <link rel="canonical" href="https://www.pokhrelankit.com.np/projects.html" />
   <meta name="author" content="Ankit Pokhrel" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#0e0e10" />
   <meta name="keywords" content="Ankit Pokhrel, Ankit Pokhrel Nepal, Ankit Pokhrel Pulchowk, AI ML engineer Nepal, machine learning Nepal, Computer Engineering IOE, IT Club Pulchowk, deep learning Nepal" />
 
   <!-- Open Graph -->
@@ -16,6 +17,8 @@
   <meta property="og:title" content="Projects | Ankit Pokhrel" />
   <meta property="og:description" content="Projects by Ankit Pokhrel: AI legal assistants, transformers from scratch, civic tech, audio ML, and NDN security research." />
   <meta property="og:image" content="https://www.pokhrelankit.com.np/assets/profile.jpg" />
+  <meta property="og:image:width" content="646" />
+  <meta property="og:image:height" content="800" />
   <meta property="og:image:alt" content="Ankit Pokhrel" />
   <meta property="og:site_name" content="Ankit Pokhrel" />
   <meta property="og:locale" content="en_US" />
@@ -25,7 +28,46 @@
   <meta name="twitter:title" content="Projects | Ankit Pokhrel" />
   <meta name="twitter:description" content="Projects by Ankit Pokhrel: AI legal assistants, transformers from scratch, civic tech, audio ML, and NDN security research." />
   <meta name="twitter:image" content="https://www.pokhrelankit.com.np/assets/profile.jpg" />
+  <meta name="twitter:site" content="@_pokhrelankit" />
   <meta name="twitter:creator" content="@_pokhrelankit" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://www.pokhrelankit.com.np/projects.html#webpage",
+        "url": "https://www.pokhrelankit.com.np/projects.html",
+        "name": "Projects | Ankit Pokhrel",
+        "isPartOf": { "@id": "https://www.pokhrelankit.com.np/#website" },
+        "about": { "@id": "https://www.pokhrelankit.com.np/#ankit" }
+      },
+      {
+        "@type": "ItemList",
+        "name": "Projects by Ankit Pokhrel",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "NDN Anomaly Detection: Interest Flooding & Cache Pollution", "url": "https://github.com/ankitpokhrel08/ndn_research_work" },
+          { "@type": "ListItem", "position": 2, "name": "ragchatbot", "url": "https://pypi.org/project/ragchatbot/" },
+          { "@type": "ListItem", "position": 3, "name": "English to Nepali Neural Machine Translation", "url": "https://github.com/ankitpokhrel08/transformer_implementation" },
+          { "@type": "ListItem", "position": 4, "name": "Padel Game Analytics", "url": "https://github.com/ankitpokhrel08/padel_game_analytics" },
+          { "@type": "ListItem", "position": 5, "name": "Kanun Sathi: AI Legal Assistant", "url": "https://github.com/ankitpokhrel08/Kanun_Sathi" },
+          { "@type": "ListItem", "position": 6, "name": "Nepali NLP Platform", "url": "https://github.com/ankitpokhrel08/nlp_project" },
+          { "@type": "ListItem", "position": 7, "name": "Nagarik Suchana", "url": "https://github.com/ankitpokhrel08/nagarik-suchana" },
+          { "@type": "ListItem", "position": 8, "name": "Infant Cry Classification", "url": "https://github.com/ankitpokhrel08/infant_cry_classification" },
+          { "@type": "ListItem", "position": 9, "name": "MCP Multi-Server Chat", "url": "https://github.com/ankitpokhrel08/MCP-Servers" }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pokhrelankit.com.np/" },
+          { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.pokhrelankit.com.np/projects.html" }
+        ]
+      }
+    ]
+  }
+  </script>
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,6 +78,7 @@
 <body>
 
   <div class="bg-grid"></div>
+  <div class="bg-hanuman" aria-hidden="true"></div>
   <div class="bg-glow"></div>
 
   <nav>
@@ -83,10 +126,12 @@
         <p>
           Research under <b>Prof. Babu Ram Dhawadi</b>: unsupervised detection of Interest
           Flooding and Cache Pollution attacks in Named Data Networking. One <b>Isolation
-          Forest</b> detector, two independent tracks: miniNDN emulation (PIT-level features)
-          and ndnSIM simulation (face-level tracer counters only). <b>100% attacker detection
-          with ~0% held-out false positives</b> across tree, dumbbell, and DFN topologies.
-          Paper draft in progress.
+          Forest</b> detector, two independent tracks: live <b>miniNDN/NFD</b> emulation
+          (PIT-level features) and <b>ns-3/ndnSIM</b> simulation (face-level tracer counters).
+          <b>100% attacker detection at ~1s latency with 0% held-out false positives</b> across
+          tree, dumbbell, and DFN topologies. KS hypothesis testing and feature-ablation
+          isolated a data-quality issue, raising detection from <b>8.5% to 61%</b> with no
+          model change. Paper draft in progress.
         </p>
         <div class="card-tags">
           <span>python</span><span>isolation-forest</span><span>minindn</span><span>ndnsim</span><span>unsupervised-ml</span>
@@ -97,26 +142,6 @@
       <article class="card reveal">
         <div class="card-top">
           <span class="card-index">[02]</span>
-          <span class="card-type">computer vision</span>
-          <div class="card-links">
-            <a href="https://github.com/ankitpokhrel08/mama" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
-        <h3>mama: Vehicle Speed Detection</h3>
-        <p>
-          Automated roadside speed enforcement built for <b>Nepal traffic police</b>.
-          YOLOv11x detection + ByteTrack tracking, perspective-corrected speed estimation,
-          number-plate reading via <b>PaddleOCR</b>, and automatic evidence capture:
-          vehicle image, plate crop, annotated clip, all into a FastAPI + PostgreSQL backend.
-        </p>
-        <div class="card-tags">
-          <span>yolov11</span><span>bytetrack</span><span>paddleocr</span><span>opencv</span><span>fastapi</span>
-        </div>
-      </article>
-
-      <article class="card reveal">
-        <div class="card-top">
-          <span class="card-index">[03]</span>
           <span class="card-type">pypi package</span>
           <div class="card-links">
             <a href="https://pypi.org/project/ragchatbot/" target="_blank" rel="noopener" aria-label="PyPI"><i class="fas fa-box"></i></a>
@@ -125,39 +150,43 @@
         </div>
         <h3>ragchatbot</h3>
         <p>
-          <b>Published Python package</b>: add a semantic-search chatbot to any website
-          in minutes: <code>pip install ragchatbot</code>. Drop in your docs, run guided
-          setup, get a grounded Q&amp;A API. Supports <b>Gemini, OpenAI, or local Ollama</b>
-          backends, no ML experience required.
+          <b>Open-source, pip-installable RAG SDK (v1.1.3 on PyPI)</b> that turns a document
+          folder into a production-ready semantic-search chatbot API with zero ML setup.
+          A pluggable multi-LLM layer (<b>Gemini, OpenAI, or local Ollama</b>) behind one
+          interface, a <b>ChromaDB</b> vector store with MD5-based incremental indexing, token
+          streaming, and a <b>25-test pytest suite</b>.
         </p>
         <div class="card-tags">
-          <span>python</span><span>rag</span><span>semantic-search</span><span>cli</span><span>pypi</span>
+          <span>python</span><span>rag</span><span>chromadb</span><span>cli</span><span>pypi</span>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <span class="card-index">[03]</span>
+          <span class="card-type">deep learning / nlp</span>
+          <div class="card-links">
+            <a href="https://github.com/ankitpokhrel08/transformer_implementation" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <h3>English ↔ Nepali Neural Machine Translation</h3>
+        <p>
+          <b>Encoder-decoder Transformer built from scratch in PyTorch</b> (Vaswani et al.):
+          multi-head self/cross-attention, sinusoidal positional encoding, label smoothing,
+          and a warmup LR schedule, no high-level NMT libraries. A <b>35M-parameter model</b>
+          trained on <b>1M sentence pairs</b> filtered from Meta AI's 19.6M-pair NLLB corpus,
+          scoring <b>13.8 BLEU / 41.2 ChrF</b> on the standard FLORES-200 benchmark.
+          SentencePiece BPE and length-bucketed batching cut ~80% padding overhead and epoch
+          time <b>~12x</b>.
+        </p>
+        <div class="card-tags">
+          <span>pytorch</span><span>transformer</span><span>nmt</span><span>nepali</span><span>sentencepiece</span>
         </div>
       </article>
 
       <article class="card reveal">
         <div class="card-top">
           <span class="card-index">[04]</span>
-          <span class="card-type">deep learning / nlp</span>
-          <div class="card-links">
-            <a href="https://github.com/ankitpokhrel08/transformer_implementation" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
-          </div>
-        </div>
-        <h3>Sanskrit → English Neural Translation</h3>
-        <p>
-          Character-level <b>encoder-decoder Transformer built from scratch in PyTorch</b>
-          (Vaswani et al.) translating Devanagari Sanskrit to English, with 6+6 layers,
-          8 attention heads, d_model 512, checkpoint-resumable training with BLEU
-          evaluation, running on Apple Silicon via MPS.
-        </p>
-        <div class="card-tags">
-          <span>pytorch</span><span>transformer</span><span>nmt</span><span>sanskrit</span>
-        </div>
-      </article>
-
-      <article class="card reveal">
-        <div class="card-top">
-          <span class="card-index">[05]</span>
           <span class="card-type">computer vision</span>
           <div class="card-links">
             <a href="https://github.com/ankitpokhrel08/padel_game_analytics" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
@@ -165,9 +194,10 @@
         </div>
         <h3>Padel Game Analytics</h3>
         <p>
-          CV pipeline that analyses padel match video in real time: <b>YOLOv8</b> player
-          detection, <b>TrackNet</b> ball tracking, <b>MediaPipe</b> pose estimation,
-          shot-type classification, and a live annotated scoreboard overlay.
+          Built during my <b>AI/ML internship at Layman AI</b>: a CV pipeline that analyses
+          padel match video in real time: <b>YOLOv8</b> player/object detection, <b>TrackNet</b>
+          ball tracking, <b>MediaPipe</b> pose estimation, rule-based shot-type classification,
+          and annotated video output with <b>per-frame CSV/JSON</b> analytics.
         </p>
         <div class="card-tags">
           <span>yolov8</span><span>tracknet</span><span>mediapipe</span><span>opencv</span>
@@ -176,7 +206,7 @@
 
       <article class="card reveal">
         <div class="card-top">
-          <span class="card-index">[06]</span>
+          <span class="card-index">[05]</span>
           <span class="card-type">ai / rag</span>
           <div class="card-links">
             <a href="https://github.com/ankitpokhrel08/Kanun_Sathi" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
@@ -184,18 +214,20 @@
         </div>
         <h3>Kanun Sathi: AI Legal Assistant</h3>
         <p>
-          <b>Bilingual (Nepali/English)</b> AI legal assistant giving constitutionally
-          grounded answers for Nepali citizens. RAG pipeline with LangChain + Gemini,
-          FastAPI backend, PostgreSQL document and query store.
+          <b>RAG platform (team of 4)</b> answering legal questions in Nepal with verifiable
+          <b>page-level citations</b> to source law (Constitution, criminal/family law).
+          PDF chunking, <b>768-dim Ollama embeddings</b>, <b>pgvector</b> similarity search,
+          and <b>Gemini 2.5 Flash</b> with citation-enforcing prompts; async ingestion via
+          <b>Redis/ARQ</b> workers. React + TypeScript frontend, full stack in Docker Compose.
         </p>
         <div class="card-tags">
-          <span>fastapi</span><span>langchain</span><span>rag</span><span>gemini</span><span>postgresql</span>
+          <span>fastapi</span><span>rag</span><span>pgvector</span><span>gemini</span><span>react</span>
         </div>
       </article>
 
       <article class="card reveal">
         <div class="card-top">
-          <span class="card-index">[07]</span>
+          <span class="card-index">[06]</span>
           <span class="card-type">nlp platform</span>
           <div class="card-links">
             <a href="https://github.com/ankitpokhrel08/nlp_project" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
@@ -214,7 +246,7 @@
 
       <article class="card reveal">
         <div class="card-top">
-          <span class="card-index">[08]</span>
+          <span class="card-index">[07]</span>
           <span class="card-type">full-stack / mobile</span>
           <div class="card-links">
             <a href="https://github.com/ankitpokhrel08/nagarik-suchana" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
@@ -233,7 +265,7 @@
 
       <article class="card reveal">
         <div class="card-top">
-          <span class="card-index">[09]</span>
+          <span class="card-index">[08]</span>
           <span class="card-type">audio ml / app</span>
           <div class="card-links">
             <a href="https://github.com/ankitpokhrel08/infant_cry_classification" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>
@@ -241,10 +273,11 @@
         </div>
         <h3>Infant Cry Classification</h3>
         <p>
-          Cross-platform app classifying infant cries (hungry, tired, discomfort) from
-          uploaded or recorded audio. <b>LSTM model exported to TFLite</b>, served by a
-          Flask API to a React Native (Expo) frontend with a consistent MFCC pipeline
-          end to end.
+          End-to-end audio classifier for infant cries (<b>hunger, pain, discomfort</b>) from
+          uploaded or recorded audio. <b>TensorFlow LSTM/ANN</b> on MFCC + spectral features
+          from <b>1,000+ recordings</b>, with <b>SMOTE</b> for class imbalance. Exported to
+          <b>TFLite</b> and served by a Flask API to a React Native (Expo) app (iOS/Android/Web)
+          with a consistent MFCC pipeline end to end.
         </p>
         <div class="card-tags">
           <span>tensorflow</span><span>lstm</span><span>tflite</span><span>react-native</span><span>flask</span>
@@ -253,7 +286,7 @@
 
       <article class="card reveal">
         <div class="card-top">
-          <span class="card-index">[10]</span>
+          <span class="card-index">[09]</span>
           <span class="card-type">agents / mcp</span>
           <div class="card-links">
             <a href="https://github.com/ankitpokhrel08/MCP-Servers" target="_blank" rel="noopener" aria-label="Source"><i class="fab fa-github"></i></a>

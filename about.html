@@ -7,7 +7,8 @@
   <meta name="description" content="About Ankit Pokhrel, Computer Engineering student at IOE Pulchowk, IT Club Secretary, Huawei Seeds for the Future fellow." />
   <link rel="canonical" href="https://www.pokhrelankit.com.np/about.html" />
   <meta name="author" content="Ankit Pokhrel" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#0e0e10" />
   <meta name="keywords" content="Ankit Pokhrel, Ankit Pokhrel Nepal, Ankit Pokhrel Pulchowk, AI ML engineer Nepal, machine learning Nepal, Computer Engineering IOE, IT Club Pulchowk, deep learning Nepal" />
 
   <!-- Open Graph -->
@@ -16,6 +17,8 @@
   <meta property="og:title" content="About | Ankit Pokhrel" />
   <meta property="og:description" content="About Ankit Pokhrel, Computer Engineering student at IOE Pulchowk, IT Club Secretary, Huawei Seeds for the Future fellow." />
   <meta property="og:image" content="https://www.pokhrelankit.com.np/assets/profile.jpg" />
+  <meta property="og:image:width" content="646" />
+  <meta property="og:image:height" content="800" />
   <meta property="og:image:alt" content="Ankit Pokhrel" />
   <meta property="og:site_name" content="Ankit Pokhrel" />
   <meta property="og:locale" content="en_US" />
@@ -25,7 +28,46 @@
   <meta name="twitter:title" content="About | Ankit Pokhrel" />
   <meta name="twitter:description" content="About Ankit Pokhrel, Computer Engineering student at IOE Pulchowk, IT Club Secretary, Huawei Seeds for the Future fellow." />
   <meta name="twitter:image" content="https://www.pokhrelankit.com.np/assets/profile.jpg" />
+  <meta name="twitter:site" content="@_pokhrelankit" />
   <meta name="twitter:creator" content="@_pokhrelankit" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "@id": "https://www.pokhrelankit.com.np/about.html#webpage",
+        "url": "https://www.pokhrelankit.com.np/about.html",
+        "name": "About | Ankit Pokhrel",
+        "isPartOf": { "@id": "https://www.pokhrelankit.com.np/#website" },
+        "about": { "@id": "https://www.pokhrelankit.com.np/#ankit" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.pokhrelankit.com.np/#ankit",
+        "name": "Ankit Pokhrel",
+        "url": "https://www.pokhrelankit.com.np/",
+        "image": "https://www.pokhrelankit.com.np/assets/profile.jpg",
+        "jobTitle": "AI/ML Engineer",
+        "sameAs": [
+          "https://github.com/ankitpokhrel08",
+          "https://www.linkedin.com/in/ankitpokhrel/",
+          "https://x.com/_pokhrelankit",
+          "https://medium.com/@pokhrelankit",
+          "https://www.instagram.com/_pokhrelankit/"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pokhrelankit.com.np/" },
+          { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.pokhrelankit.com.np/about.html" }
+        ]
+      }
+    ]
+  }
+  </script>
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,6 +78,7 @@
 <body>
 
   <div class="bg-grid"></div>
+  <div class="bg-hanuman" aria-hidden="true"></div>
   <div class="bg-glow"></div>
 
   <nav>
@@ -74,10 +117,11 @@
         <div class="about-prose reveal">
           <p>
             I'm a <b>Computer Engineering</b> student at IOE Pulchowk Campus, Nepal's
-            top-ranked engineering school, specialising in AI and machine learning.
-            What pulls me in is the full pipeline: not just training a model, but taking
-            it from raw data through feature engineering, evaluation, and into something
-            people actually use. That thread runs through everything in
+            top-ranked engineering school, specialising in AI and machine learning, and
+            currently an <b>AI/ML intern at Layman AI</b> shipping production computer-vision
+            systems. What pulls me in is the full pipeline: not just training a model, but
+            taking it from raw data through feature engineering, evaluation, and into
+            something people actually use. That thread runs through everything in
             <a href="./projects.html">my work</a>, from network security research to a
             published PyPI package.
           </p>
@@ -103,13 +147,29 @@
             <span class="photo-tag">ankit.jpg</span>
           </div>
           <dl class="fact-list">
-            <div><dt>location</dt><dd>Lalitpur, NP</dd></div>
+            <div><dt>location</dt><dd>Ekantakuna, Lalitpur</dd></div>
             <div><dt>study</dt><dd>IOE Pulchowk</dd></div>
             <div><dt>focus</dt><dd>AI / ML</dd></div>
-            <div><dt>role</dt><dd>IT Club Secretary</dd></div>
+            <div><dt>now</dt><dd>Intern @ Layman AI</dd></div>
           </dl>
         </div>
       </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section class="section">
+      <div class="sec-head">
+        <h2>skills</h2>
+        <div class="sec-line"></div>
+      </div>
+      <dl class="skills reveal">
+        <div><dt>languages</dt><dd>Python · C · C++ · JavaScript · TypeScript · SQL</dd></div>
+        <div><dt>ai / ml</dt><dd>Deep Learning · CNNs · RNN/LSTM/GRU · Transformers &amp; Attention · NLP · RAG · LLM fine-tuning (QLoRA/PEFT) · Computer Vision · model evaluation · feature engineering</dd></div>
+        <div><dt>ml &amp; data</dt><dd>PyTorch · TensorFlow/Keras · scikit-learn · Hugging Face · LangChain · NumPy · Pandas · OpenCV · librosa · Matplotlib</dd></div>
+        <div><dt>backend &amp; web</dt><dd>FastAPI · Flask · Node.js · Express · React.js · React Native · REST APIs</dd></div>
+        <div><dt>databases</dt><dd>PostgreSQL · MongoDB · Firebase · ChromaDB · pgvector · Redis</dd></div>
+        <div><dt>tools &amp; mlops</dt><dd>Docker · Git · GitHub · Coolify · Streamlit · Jupyter · Prisma</dd></div>
+      </dl>
     </section>
 
     <!-- ============ TIMELINE ============ -->
@@ -121,13 +181,24 @@
       <div class="tline reveal">
 
         <div class="tline-item">
-          <div class="when">jun 2025 - present</div>
+          <div class="when">may 2026 - present</div>
+          <h3>AI/ML Intern <span class="pill pill-exp">internship</span></h3>
+          <div class="org">Layman AI · Remote</div>
+          <ul>
+            <li>Built a sports-analytics pipeline: YOLOv8 detection, MediaPipe pose estimation, and rule-based shot classification with per-frame CSV/JSON output</li>
+            <li>Developed and exposed real-time computer-vision inference over RESTful APIs with FastAPI, integrating detection pipelines with live application streams</li>
+            <li>Contributed to production-grade CV products (parking occupancy, construction safety, activity monitoring), shipping on schedule in an agile team</li>
+          </ul>
+        </div>
+
+        <div class="tline-item">
+          <div class="when">jun 2025 - jun 2026</div>
           <h3>Secretary, IT Club Pulchowk <span class="pill pill-exp">role</span></h3>
           <div class="org">IOE Pulchowk Campus · Lalitpur</div>
           <ul>
-            <li>Coordinate technical workshops and seminars for engineering students</li>
-            <li>Python scripts automating internal communication and reporting workflows</li>
-            <li>Supervise IT Club website development and digital assets</li>
+            <li>Deployed and maintained campus and college web projects on a self-hosted Manaslu server with Coolify (PaaS): Docker deployments, subdomains, and service uptime</li>
+            <li>Organised technical workshops, seminars, and hackathons for engineering students</li>
+            <li>Oversaw development and maintenance of the IT Club website and digital assets</li>
           </ul>
         </div>
 
@@ -179,6 +250,19 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ============ CERTIFICATIONS ============ -->
+    <section class="section">
+      <div class="sec-head">
+        <h2>certifications</h2>
+        <div class="sec-line"></div>
+      </div>
+      <ul class="cert-list reveal">
+        <li><span class="cert-name">Machine Learning</span><span class="cert-org">Coursera</span></li>
+        <li><span class="cert-name">Meta Front-End Development</span><span class="cert-org">Coursera</span></li>
+        <li><span class="cert-name">Coding &amp; Programming with Python</span><span class="cert-org">Samsung Innovation College</span></li>
+      </ul>
     </section>
 
   </main>
