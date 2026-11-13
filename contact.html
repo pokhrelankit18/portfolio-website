@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js')</script>
   <title>Contact | Ankit Pokhrel</title>
   <meta name="description" content="Get in touch with Ankit Pokhrel for research collaborations, freelance work, or interesting projects." />
   <link rel="canonical" href="https://www.pokhrelankit.com.np/contact.html" />
   <meta name="author" content="Ankit Pokhrel" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-  <meta name="theme-color" content="#0e0e10" />
+  <meta name="theme-color" content="#f3efe6" />
   <meta name="keywords" content="Ankit Pokhrel, Ankit Pokhrel Nepal, Ankit Pokhrel Pulchowk, AI ML engineer Nepal, machine learning Nepal, Computer Engineering IOE, IT Club Pulchowk, deep learning Nepal" />
 
   <!-- Open Graph -->
@@ -16,18 +17,18 @@
   <meta property="og:url" content="https://www.pokhrelankit.com.np/contact.html" />
   <meta property="og:title" content="Contact | Ankit Pokhrel" />
   <meta property="og:description" content="Get in touch with Ankit Pokhrel for research collaborations, freelance work, or interesting projects." />
-  <meta property="og:image" content="https://www.pokhrelankit.com.np/assets/profile.jpg" />
-  <meta property="og:image:width" content="646" />
-  <meta property="og:image:height" content="800" />
+  <meta property="og:image" content="https://www.pokhrelankit.com.np/assets/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Ankit Pokhrel" />
   <meta property="og:site_name" content="Ankit Pokhrel" />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Contact | Ankit Pokhrel" />
   <meta name="twitter:description" content="Get in touch with Ankit Pokhrel for research collaborations, freelance work, or interesting projects." />
-  <meta name="twitter:image" content="https://www.pokhrelankit.com.np/assets/profile.jpg" />
+  <meta name="twitter:image" content="https://www.pokhrelankit.com.np/assets/og-card.jpg" />
   <meta name="twitter:site" content="@_pokhrelankit" />
   <meta name="twitter:creator" content="@_pokhrelankit" />
 
@@ -54,17 +55,14 @@
   }
   </script>
   <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Devanagari:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <div class="bg-grid"></div>
-  <div class="bg-hanuman" aria-hidden="true"></div>
-  <div class="bg-glow"></div>
+  <a class="skip-link" href="#main">skip to content</a>
 
   <nav>
     <div class="nav-inner">
@@ -89,28 +87,33 @@
     <a href="./contact.html" class="active">contact</a>
   </div>
 
-  <main>
+  <main id="main">
 
     <div class="page-head">
       <div class="crumb"><b>~/ankit</b> $ mail -s "hello"</div>
       <h1>Let's talk.</h1>
+      <p>Research collaborations, AI/ML and computer vision roles, or a problem you
+         think is worth building for. Email is the fastest way to reach me.</p>
     </div>
 
-    <section class="section">
-      <div class="contact-box reveal">
-        <h2>Got a project or research<br />idea in mind?</h2>
-        <p>Inbox is open, and I reply fast.</p>
+    <section class="contact-grid">
+      <div class="contact-card reveal">
+        <span class="contact-label">email</span>
         <a class="contact-mail" href="mailto:pokhrelankit2004@gmail.com">pokhrelankit2004@gmail.com</a>
-        <div class="contact-links">
-          <a href="https://github.com/ankitpokhrel08" target="_blank" rel="noopener"><i class="fab fa-github"></i> github</a>
-          <a href="https://www.linkedin.com/in/ankitpokhrel/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> linkedin</a>
-          <a href="https://medium.com/@pokhrelankit" target="_blank" rel="noopener"><i class="fab fa-medium"></i> medium</a>
-          <a href="https://x.com/_pokhrelankit" target="_blank" rel="noopener"><i class="fab fa-x-twitter"></i> x</a>
-          <a href="https://www.instagram.com/_pokhrelankit/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> instagram</a>
-          <a href="./assets/Resume.pdf" download="Ankit_Pokhrel_Resume.pdf"><i class="fas fa-file-arrow-down"></i> resume.pdf</a>
-          <a href="https://buymemomo.com/ankitpokhrel" target="_blank" rel="noopener">🥟 buy me momo</a>
+        <div class="contact-actions">
+          <button class="btn btn-solid" type="button" id="copy-mail" data-mail="pokhrelankit2004@gmail.com">copy address</button>
+          <a class="btn btn-line" href="mailto:pokhrelankit2004@gmail.com">open mail app</a>
         </div>
+        <p class="contact-note">Based in Lalitpur, Nepal (UTC+5:45). It's <span id="contact-time">daytime</span> here right now.</p>
       </div>
+
+      <ul class="contact-list reveal">
+        <li><a href="https://www.linkedin.com/in/ankitpokhrel/" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="./assets/icons.svg#linkedin"/></svg><span class="cl-name">LinkedIn</span><span class="cl-handle">in/ankitpokhrel</span><span class="cl-arr" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://github.com/ankitpokhrel08" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="./assets/icons.svg#github"/></svg><span class="cl-name">GitHub</span><span class="cl-handle">ankitpokhrel08</span><span class="cl-arr" aria-hidden="true">↗</span></a></li>
+        <li><a href="https://medium.com/@pokhrelankit" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="./assets/icons.svg#medium"/></svg><span class="cl-name">Medium</span><span class="cl-handle">@pokhrelankit</span><span class="cl-arr" aria-hidden="true">↗</span></a></li>
+        <li><a href="./assets/Resume.pdf" download="Ankit_Pokhrel_Resume.pdf"><svg class="ic" aria-hidden="true"><use href="./assets/icons.svg#file-arrow-down"/></svg><span class="cl-name">Resume</span><span class="cl-handle">pdf</span><span class="cl-arr" aria-hidden="true">↓</span></a></li>
+        <li><a href="https://buymemomo.com/ankitpokhrel" target="_blank" rel="noopener"><span class="ic cl-emoji" aria-hidden="true">🥟</span><span class="cl-name">Buy me momo</span><span class="cl-handle">if something here helped</span><span class="cl-arr" aria-hidden="true">↗</span></a></li>
+      </ul>
     </section>
 
   </main>
@@ -120,8 +123,7 @@
       <span>lalitpur, np</span>
       <span id="foot-clock"></span>
       <div class="foot-right">
-        <a href="https://github.com/pokhrelankit18/portfolio-website" target="_blank" rel="noopener">src</a>
-        <span>© 2025 ankit pokhrel</span>
+        <span>© <span class="foot-year">2026</span> ankit pokhrel</span>
       </div>
     </div>
   </footer>

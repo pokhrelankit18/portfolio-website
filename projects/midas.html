@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js')</script>
+  <title>MIDAS: When a Road Sign Hijacks the Model | Ankit Pokhrel</title>
+  <meta name="description" content="Reproducing an attack where one sign in the camera view flips a vision-language model's driving decision, then finding where the hijack lives inside the model." />
+  <link rel="canonical" href="https://www.pokhrelankit.com.np/projects/midas.html" />
+  <meta name="author" content="Ankit Pokhrel" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#f3efe6" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.pokhrelankit.com.np/projects/midas.html" />
+  <meta property="og:title" content="MIDAS: When a Road Sign Hijacks the Model | Ankit Pokhrel" />
+  <meta property="og:description" content="Reproducing an attack where one sign in the camera view flips a vision-language model's driving decision, then finding where the hijack lives inside the model." />
+  <meta property="og:image" content="https://www.pokhrelankit.com.np/assets/projects/midas/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="MIDAS: When a Road Sign Hijacks the Model" />
+  <meta property="og:site_name" content="Ankit Pokhrel" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MIDAS: When a Road Sign Hijacks the Model | Ankit Pokhrel" />
+  <meta name="twitter:description" content="Reproducing an attack where one sign in the camera view flips a vision-language model's driving decision, then finding where the hijack lives inside the model." />
+  <meta name="twitter:image" content="https://www.pokhrelankit.com.np/assets/projects/midas/og.jpg" />
+  <meta name="twitter:site" content="@_pokhrelankit" />
+  <meta name="twitter:creator" content="@_pokhrelankit" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://www.pokhrelankit.com.np/projects/midas.html#webpage",
+        "url": "https://www.pokhrelankit.com.np/projects/midas.html",
+        "name": "MIDAS: When a Road Sign Hijacks the Model | Ankit Pokhrel",
+        "isPartOf": {
+          "@id": "https://www.pokhrelankit.com.np/#website"
+        },
+        "mainEntity": {
+          "@id": "https://www.pokhrelankit.com.np/projects/midas.html#work"
+        }
+      },
+      {
+        "@type": "CreativeWork",
+        "@id": "https://www.pokhrelankit.com.np/projects/midas.html#work",
+        "name": "MIDAS: When a Road Sign Hijacks the Model",
+        "description": "Reproducing an attack where one sign in the camera view flips a vision-language model's driving decision, then finding where the hijack lives inside the model.",
+        "url": "https://www.pokhrelankit.com.np/projects/midas.html",
+        "image": "https://www.pokhrelankit.com.np/assets/projects/midas/og.jpg",
+        "dateCreated": "2026",
+        "keywords": "PyTorch, InternVL2.5 (1B to 8B), DriveLM scenes, linear probes, Kaggle 2x T4",
+        "author": {
+          "@id": "https://www.pokhrelankit.com.np/#ankit"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.pokhrelankit.com.np/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Projects",
+            "item": "https://www.pokhrelankit.com.np/projects.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "MIDAS: When a Road Sign Hijacks the Model",
+            "item": "https://www.pokhrelankit.com.np/projects/midas.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Devanagari:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="../" class="nav-logo"><span class="tilde">~</span><span class="slash">/</span>ankit</a>
+      <div class="nav-links">
+        <a href="../">home</a>
+        <a href="../projects.html" class="active">projects</a>
+        <a href="../about.html">about</a>
+        <a href="../gallery.html">gallery</a>
+        <a href="../contact.html">contact</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="../">home</a>
+    <a href="../projects.html" class="active">projects</a>
+    <a href="../about.html">about</a>
+    <a href="../gallery.html">gallery</a>
+    <a href="../contact.html">contact</a>
+  </div>
+
+  <main id="main" class="cs article">
+    <a class="art-back" href="../projects.html">← all projects</a>
+    <header class="art-head">
+      <div class="art-kicker">research · undergraduate major project · ongoing</div>
+      <h1>MIDAS: When a Road Sign Hijacks the Model</h1>
+      <p class="art-sub">Reproducing an attack where one sign in the camera view flips a vision-language model's driving decision, then finding where the hijack lives inside the model.</p>
+      <div class="byline">
+        <img src="../assets/profile.webp" width="44" height="44" alt="" />
+        <div>
+          <div class="by-name">Ankit Pokhrel</div>
+          <div class="by-meta">1 min read<span class="by-dot">·</span>2026</div>
+        </div>
+      </div>
+    </header>
+
+    <figure class="cs-hero is-light">
+      <button class="zoom" type="button" data-full="../assets/projects/midas/clean-vs-attacked.webp" aria-label="Enlarge image: The same street scene before and after a red PROCEED sign is added">
+        <img src="../assets/projects/midas/clean-vs-attacked.webp" width="1800" height="607" alt="The same street scene before and after a red PROCEED sign is added" fetchpriority="high" decoding="async" />
+      </button>
+      <figcaption>Same scene, same question. Without the sign the model answers brake; with it, proceed.</figcaption>
+    </figure>
+
+    <article class="art-body">
+        <p>MIDAS is our undergraduate major project, and it's ongoing. We're reproducing CHAI, a published attack where a readable sign in a driving scene (say, one that reads PROCEED) makes a vision-language model change its decision, on InternVL2.5 with CHAI's DriveLM scenes. So far the attack reproduces, but more weakly than the paper reports, and a linear probe on the model's hidden states can already tell when it is following the sign instead of the scene. We've also compared model sizes from 1B to 8B, and next we want to try activation steering as a defense.</p>
+    </article>
+
+    <div class="art-foot">
+      <ul class="art-notes">
+          <li><span>role</span> built the pipeline and ran the experiments</li>
+          <li><span>team</span> with Aayush Ojha and Ankit Raj Mehta · supervised by Assoc. Prof. Dr. Dibakar Raj Pant</li>
+          <li><span>timeline</span> Oct 2026 - present</li>
+        </ul>
+      <ul class="art-tags"><li>PyTorch</li><li>InternVL2.5 (1B to 8B)</li><li>DriveLM scenes</li><li>linear probes</li><li>Kaggle 2x T4</li></ul>
+    </div>
+
+    <div class="art-more" role="navigation" aria-label="more case studies">
+      <div class="art-more-label">More from Ankit</div>
+      <a href="ndn-anomaly-detection.html"><span>previous</span>Catching Attacks in Named Data Networking</a>
+      <a href="spyder.html"><span>next</span>SPYDER: One Photo, Hours of Footage</a>
+    </div>
+  </main>
+
+  <dialog class="lightbox" aria-label="enlarged image">
+    <button class="lightbox-close" type="button" aria-label="Close">×</button>
+  </dialog>
+
+  <footer>
+    <div class="foot-inner">
+      <span>lalitpur, np</span>
+      <span id="foot-clock"></span>
+      <div class="foot-right">
+        <span>© <span class="foot-year">2026</span> ankit pokhrel</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

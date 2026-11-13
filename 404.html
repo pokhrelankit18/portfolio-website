@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js')</script>
+  <title>404 | Ankit Pokhrel</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#f3efe6" />
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Devanagari:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo"><span class="tilde">~</span><span class="slash">/</span>ankit</a>
+      <div class="nav-links">
+        <a href="/">home</a>
+        <a href="/projects.html">projects</a>
+        <a href="/about.html">about</a>
+        <a href="/gallery.html">gallery</a>
+        <a href="/contact.html">contact</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="/">home</a>
+    <a href="/projects.html">projects</a>
+    <a href="/about.html">about</a>
+    <a href="/gallery.html">gallery</a>
+    <a href="/contact.html">contact</a>
+  </div>
+
+  <main id="main">
+    <div class="page-head">
+      <div class="crumb"><b>~/ankit</b> $ cd <span id="nf-path">./that-page</span></div>
+      <h1>404: no such file or directory.</h1>
+      <p>Either the link is old or I renamed something and forgot to tell you.
+         Probably the second one. Try one of these:</p>
+    </div>
+
+    <section class="section">
+      <div class="hero-actions">
+        <a href="/" class="btn btn-solid">cd ~</a>
+        <a href="/projects.html" class="btn btn-line">cd projects</a>
+        <a href="/contact.html" class="btn btn-line">report it</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <span>lalitpur, np</span>
+      <span id="foot-clock"></span>
+      <div class="foot-right">
+        <span>© <span class="foot-year">2026</span> ankit pokhrel</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // show the path they actually typed (textContent, so it can't inject markup)
+    var path = location.pathname;
+    try { path = decodeURIComponent(path); } catch (e) { /* malformed escape: show it raw */ }
+    document.getElementById('nf-path').textContent = '.' + path.slice(0, 60);
+  </script>
+  <script src="/script.js"></script>
+</body>
+</html>

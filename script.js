@@ -1,18 +1,26 @@
 /* shared site script - every block guards on element existence
    so the same file works across all pages */
 
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// escape user-typed text before it goes into innerHTML
+const escHTML = s =>
+  String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ---------- footer year: never goes stale ---------- */
+document.querySelectorAll('.foot-year').forEach(el => { el.textContent = new Date().getFullYear(); });
+
 /* ---------- cursor trails: elastic tendrils following the mouse ---------- */
 if (
   window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
-  !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  !REDUCED_MOTION
 ) {
   const CFG = { trails: 10, size: 30, friction: 0.5, dampening: 0.3, tension: 0.98 };
   const mouse = { x: -100, y: -100 };
   let ctx, trails = [], raf = null, started = false;
 
-  // slow hue oscillation around the site's amber (≈35), drifting toward gold
   const hue = { phase: Math.random() * Math.PI * 2 };
-  const hueNow = () => 35 + Math.sin((hue.phase += 0.0015)) * 18;
+  const hueNow = () => 218 + Math.sin((hue.phase += 0.0015)) * 10;  // the site's deep blue
 
   class Node { constructor() { this.x = mouse.x; this.y = mouse.y; this.vx = 0; this.vy = 0; } }
 
@@ -78,8 +86,8 @@ if (
   const render = () => {
     ctx.globalCompositeOperation = 'source-over';
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    ctx.globalCompositeOperation = 'lighter';
-    ctx.strokeStyle = `hsla(${Math.round(hueNow())}, 85%, 60%, 0.14)`;
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = `hsla(${Math.round(hueNow())}, 55%, 38%, 0.16)`;
     ctx.lineWidth = 1;
     for (const t of trails) { t.update(); t.draw(); }
     raf = requestAnimationFrame(render);
@@ -121,50 +129,6 @@ if (burger && mobileNav) {
   });
 }
 
-/* ---------- gallery: render figures from gallery-data.js ---------- */
-const galleryGrid = document.getElementById('gallery-grid');
-
-if (galleryGrid && typeof GALLERY !== 'undefined') {
-  GALLERY.forEach(item => {
-    const fig = document.createElement('figure');
-    fig.className = 'g-item reveal' + (item.imgs.length > 1 ? ' g-slider' : '');
-
-    const makeImg = (src, active) => {
-      const img = document.createElement('img');
-      img.src = './assets/gallery/web/' + src;
-      img.alt = item.title;
-      img.loading = 'lazy';
-      if (active) img.classList.add('active');
-      return img;
-    };
-
-    if (item.imgs.length > 1) {
-      const slides = document.createElement('div');
-      slides.className = 'g-slides';
-      item.imgs.forEach((src, i) => slides.appendChild(makeImg(src, i === 0)));
-      fig.appendChild(slides);
-      const dots = document.createElement('div');
-      dots.className = 'g-dots';
-      fig.appendChild(dots);
-    } else {
-      fig.appendChild(makeImg(item.imgs[0], false));
-    }
-
-    const cap = document.createElement('figcaption');
-    const tag = document.createElement('span');
-    tag.className = 'g-tag';
-    tag.textContent = item.tag;
-    const h3 = document.createElement('h3');
-    h3.textContent = item.title;
-    const p = document.createElement('p');
-    p.textContent = item.story;
-    cap.append(tag, h3, p);
-    fig.appendChild(cap);
-
-    galleryGrid.appendChild(fig);
-  });
-}
-
 /* ---------- scroll reveal ---------- */
 const revealEls = document.querySelectorAll('.reveal');
 
@@ -181,6 +145,107 @@ if (revealEls.length) {
   revealEls.forEach((el, i) => {
     el.style.transitionDelay = `${(i % 4) * 70}ms`;
     io.observe(el);
+  });
+}
+
+/* ---------- nav: hairline + shadow only once content scrolls under it ---------- */
+const navEl = document.querySelector('nav');
+
+if (navEl) {
+  const setScrolled = () => navEl.classList.toggle('scrolled', window.scrollY > 4);
+  setScrolled();
+  window.addEventListener('scroll', setScrolled, { passive: true });
+}
+
+/* ---------- case studies: looping clips play only while on screen ---------- */
+const autoVideos = document.querySelectorAll('video[data-autoplay]');
+
+if (autoVideos.length && !REDUCED_MOTION) {
+  const vio = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting) {
+        v.play().then(() => v.removeAttribute('controls')).catch(() => { /* autoplay blocked: keep controls */ });
+      } else {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.35 });
+  autoVideos.forEach(v => vio.observe(v));
+}
+
+/* ---------- case studies: click a figure to see it full size ---------- */
+const lightbox = document.querySelector('dialog.lightbox');
+
+if (lightbox && typeof lightbox.showModal === 'function') {
+  // the <img> is created on first open so the page never holds an empty image
+  let lbImg = null;
+  document.querySelectorAll('.zoom[data-full]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const img = btn.querySelector('img');
+      if (!lbImg) { lbImg = document.createElement('img'); lightbox.appendChild(lbImg); }
+      lbImg.src = btn.dataset.full;
+      lbImg.alt = img ? img.alt : '';
+      lightbox.showModal();
+    });
+  });
+  // any click (backdrop, image or the close button) closes it; Esc works natively
+  lightbox.addEventListener('click', () => lightbox.close());
+}
+
+/* ---------- home: signature writes itself, then lands under the photo ---------- */
+const sigLoader = document.querySelector('.sig-loader');
+
+if (sigLoader && document.documentElement.classList.contains('sig-intro')) {
+  const root = document.documentElement;
+  const flying = sigLoader.querySelector('.sig');
+  const target = document.querySelector('.sig-home .sig');
+  let finished = false;
+
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    try { sessionStorage.setItem('sig-done', '1'); } catch (e) {}
+    root.classList.remove('sig-intro');
+    sigLoader.remove();
+  };
+
+  const land = () => {
+    if (finished || !target) { finish(); return; }
+    window.scrollTo(0, 0);
+    const from = flying.getBoundingClientRect();
+    const to = target.getBoundingClientRect();
+    const scale = to.width / from.width;
+    sigLoader.classList.add('is-landing');
+    flying.style.transform = `translate(${to.left - from.left}px, ${to.top - from.top}px) scale(${scale})`;
+    flying.addEventListener('transitionend', finish, { once: true });
+    setTimeout(finish, 1400); // safety net if transitionend never fires
+  };
+
+  // the SVG knows how long the writing takes; click anywhere to skip to the landing
+  const writeMs = parseFloat(flying.dataset.dur || '3') * 1000;
+  const timer = setTimeout(land, writeMs + 350);
+  sigLoader.addEventListener('click', () => { clearTimeout(timer); land(); }, { once: true });
+  setTimeout(finish, writeMs + 3500);
+}
+
+/* ---------- contact: copy the address, show the local time ---------- */
+const copyBtn = document.getElementById('copy-mail');
+
+if (copyBtn && navigator.clipboard) {
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(copyBtn.dataset.mail).then(() => {
+      copyBtn.textContent = 'copied ✓';
+      setTimeout(() => { copyBtn.textContent = 'copy address'; }, 1800);
+    });
+  });
+}
+
+const contactTime = document.getElementById('contact-time');
+
+if (contactTime) {
+  contactTime.textContent = new Date().toLocaleTimeString('en-GB', {
+    timeZone: 'Asia/Kathmandu', hour: '2-digit', minute: '2-digit',
   });
 }
 
@@ -201,47 +266,57 @@ if (clockEl) {
   setInterval(tickClock, 1000);
 }
 
-/* ---------- marquee: duplicate track for seamless loop ---------- */
-const track = document.getElementById('marquee-track');
-
-if (track) {
-  track.innerHTML += track.innerHTML;
-}
-
 /* ---------- gallery sliders: auto-scroll groups from the same event ---------- */
-document.querySelectorAll('.g-slider').forEach(slider => {
-  const imgs = slider.querySelectorAll('.g-slides img');
-  const dotsBox = slider.querySelector('.g-dots');
-  if (imgs.length < 2 || !dotsBox) return;
+const sliders = document.querySelectorAll('.g-slider');
 
-  let idx = 0;
-  let paused = false;
+if (sliders.length) {
+  const state = new Map();
 
-  imgs.forEach((_, i) => {
-    const dot = document.createElement('span');
-    if (i === 0) dot.classList.add('active');
-    dot.addEventListener('click', (e) => {
-      e.stopPropagation();
-      show(i);
+  sliders.forEach(slider => {
+    const imgs = slider.querySelectorAll('.g-slides img');
+    const dotsBox = slider.querySelector('.g-dots');
+    if (imgs.length < 2 || !dotsBox) return;
+
+    const st = { idx: 0, hover: false, visible: false, imgs, dots: [] };
+
+    st.show = i => {
+      st.imgs[st.idx].classList.remove('active');
+      st.dots[st.idx].classList.remove('active');
+      st.idx = i % st.imgs.length;
+      st.imgs[st.idx].classList.add('active');
+      st.dots[st.idx].classList.add('active');
+    };
+
+    imgs.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `photo ${i + 1} of ${imgs.length}`);
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', e => { e.stopPropagation(); st.show(i); });
+      dotsBox.appendChild(dot);
+      st.dots.push(dot);
     });
-    dotsBox.appendChild(dot);
+
+    slider.addEventListener('mouseenter', () => { st.hover = true; });
+    slider.addEventListener('mouseleave', () => { st.hover = false; });
+    slider.addEventListener('focusin', () => { st.hover = true; });
+    slider.addEventListener('focusout', () => { st.hover = false; });
+    state.set(slider, st);
   });
 
-  const dots = dotsBox.querySelectorAll('span');
+  // only advance sliders that are on screen, in a visible tab, and only if motion is welcome
+  if (!REDUCED_MOTION && state.size) {
+    const vis = new IntersectionObserver(entries => {
+      entries.forEach(e => { state.get(e.target).visible = e.isIntersecting; });
+    });
+    state.forEach((_, el) => vis.observe(el));
 
-  function show(i) {
-    imgs[idx].classList.remove('active');
-    dots[idx].classList.remove('active');
-    idx = i % imgs.length;
-    imgs[idx].classList.add('active');
-    dots[idx].classList.add('active');
+    setInterval(() => {
+      if (document.hidden) return;
+      state.forEach(st => { if (st.visible && !st.hover) st.show(st.idx + 1); });
+    }, 3500);
   }
-
-  slider.addEventListener('mouseenter', () => { paused = true; });
-  slider.addEventListener('mouseleave', () => { paused = false; });
-
-  setInterval(() => { if (!paused) show(idx + 1); }, 3500);
-});
+}
 
 /* ---------- gallery: tap toggles story on touch devices ---------- */
 const galleryItems = document.querySelectorAll('.g-item');
@@ -255,313 +330,35 @@ if (galleryItems.length && window.matchMedia('(hover: none)').matches) {
   });
 }
 
-/* ---------- hero terminal: scripted intro, then interactive (home only) ---------- */
-const termBody = document.getElementById('term-body');
+/* ---------- terminal: icon in the nav, full-screen shell loaded on demand ---------- */
+const navInner = document.querySelector('.nav-inner');
 
-if (termBody) {
-  const PROMPT = '<span class="prompt">ankitpokhrel<span class="path">:~$</span></span> ';
+if (navInner) {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'nav-term';
+  btn.setAttribute('aria-label', 'Open terminal');
+  btn.title = 'terminal (ctrl + `)';
+  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7 9.5l3 2.5-3 2.5M12.5 15h4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  navInner.insertBefore(btn, document.getElementById('burger'));
 
-  const PAGES = {
-    home: './', projects: './projects.html', about: './about.html',
-    gallery: './gallery.html', contact: './contact.html',
-  };
-
-  const print = (html, cls = 'out') => {
-    const ln = document.createElement('div');
-    ln.className = 'ln ' + cls;
-    ln.innerHTML = html;
-    termBody.appendChild(ln);
-    termBody.scrollTop = termBody.scrollHeight;
-  };
-
-  const goTo = (page) => {
-    print(`opening <span class="key">${page}</span> ...`);
-    setTimeout(() => { window.location.href = PAGES[page]; }, 450);
-  };
-
-  const COMMANDS = {
-    help: () => print(
-      [
-        '<span class="key">help</span>           list all commands',
-        '<span class="key">cd</span> &lt;page&gt;      go to a page (home, projects, about, gallery, contact)',
-        '<span class="key">open</span> &lt;page&gt;    same as cd',
-        '<span class="key">ls</span>             list pages',
-        '<span class="key">whoami</span>         about me, the short version',
-        '<span class="key">cat</span> &lt;file&gt;     read focus.txt, about.md, or hobbies.txt',
-        '<span class="key">uptime</span>         the numbers so far',
-        '<span class="key">socials</span>        where to find me',
-        '<span class="key">resume</span>         download resume.pdf',
-        '<span class="key">neofetch</span>       system info',
-        '<span class="key">date</span>           current time (npt)',
-        '<span class="key">echo</span> &lt;text&gt;    say it back',
-        '<span class="key">clear</span>          clean the screen',
-        '<span class="key">sudo</span> ...        try it',
-      ].join('<br/>')
-    ),
-
-    whoami: () => print('ankit · <span class="key">ml engineer</span> in training, shipping anyway'),
-
-    ls: () => print('home/&nbsp;&nbsp;projects/&nbsp;&nbsp;about/&nbsp;&nbsp;gallery/&nbsp;&nbsp;contact/&nbsp;&nbsp;<span class="key">resume.pdf</span>'),
-
-    uptime: () => print('ml intern @ layman ai · coding for 2+ years · 10+ projects shipped · 2 hackathon awards'),
-
-    socials: () => print(
-      'github: <a href="https://github.com/ankitpokhrel08" target="_blank" rel="noopener">ankitpokhrel08</a> · ' +
-      'linkedin: <a href="https://www.linkedin.com/in/ankitpokhrel/" target="_blank" rel="noopener">ankitpokhrel</a> · ' +
-      'x: <a href="https://x.com/_pokhrelankit" target="_blank" rel="noopener">@_pokhrelankit</a> · ' +
-      'medium: <a href="https://medium.com/@pokhrelankit" target="_blank" rel="noopener">@pokhrelankit</a>'
-    ),
-
-    resume: () => {
-      print('downloading <span class="key">resume.pdf</span> ...');
-      const a = document.createElement('a');
-      a.href = './assets/Resume.pdf';
-      a.download = 'Ankit_Pokhrel_Resume.pdf';
-      a.click();
-    },
-
-    neofetch: () => {
-      // two-tone frames: dim structure, lit pulse (<b> = accent color)
-      const lit = s => `<b>${s}</b>`;
-      const n = on => (on ? lit('●') : '○');
-      const e = st => (st === 'f' ? lit('━━━━▸') : st === 'b' ? lit('◂━━━━') : '─────');
-      const dg = (on, s) => (on ? lit(s) : s);
-
-      const net = (l0, l1, l2, e01, e12, out, label) => {
-        const x1 = e01 !== '-';
-        const x2 = e12 !== '-';
-        const nodeRow = tail =>
-          ` ${n(l0)}${e(e01)}${n(l1)}${e(e12)}${n(l2)}${tail}`;
-        return [
-          nodeRow(''),
-          `   ${dg(x1, '╲ ╱')}   ${dg(x2, '╲ ╱')}`,
-          `    ${dg(x1, '╳')}     ${dg(x2, '╳')}`,
-          `   ${dg(x1, '╱ ╲')}   ${dg(x2, '╱ ╲')}`,
-          nodeRow(out ? lit('──▶ ŷ = 0.97') : '──▶ ŷ = ?   '),
-          `   ${dg(x1, '╲ ╱')}   ${dg(x2, '╲ ╱')}`,
-          `    ${dg(x1, '╳')}     ${dg(x2, '╳')}`,
-          `   ${dg(x1, '╱ ╲')}   ${dg(x2, '╱ ╲')}`,
-          nodeRow(''),
-          ``,
-          ` ${lit(label.padEnd(18))}`,
-        ].join('\n');
-      };
-
-      const FRAMES = [
-        net(true,  false, false, '-', '-', false, 'forward ▸'),
-        net(false, false, false, 'f', '-', false, 'forward ▸▸'),
-        net(false, true,  false, '-', '-', false, 'forward ▸▸'),
-        net(false, false, false, '-', 'f', false, 'forward ▸▸▸'),
-        net(false, false, true,  '-', '-', true,  'prediction ✓'),
-        net(false, false, false, '-', 'b', true,  '◂ backprop'),
-        net(false, true,  false, '-', '-', false, '◂◂ backprop'),
-        net(false, false, false, 'b', '-', false, '◂◂◂ backprop'),
-        net(true,  false, false, '-', '-', false, 'weights updated ✓'),
-      ];
-
-      const wrap = document.createElement('div');
-      wrap.className = 'ln neo';
-      wrap.innerHTML =
-        '<div class="neo-info">' +
-          '<div class="neo-title">ankitpokhrel</div>' +
-          '<div class="neo-sep">──────────────</div>' +
-          '<div><span class="nk">os</span>      student-os 4.0</div>' +
-          '<div><span class="nk">host</span>    ioe pulchowk campus</div>' +
-          '<div><span class="nk">kernel</span>  ai/ml 24.7</div>' +
-          '<div><span class="nk">shell</span>   python &gt; everything</div>' +
-          '<div><span class="nk">uptime</span>  2+ years of code</div>' +
-          '<div><span class="nk">memory</span>  80% models, 20% momo</div>' +
-          '<div class="neo-pal">' +
-            ['#ff5f56','#ffbd2e','#27c93f','#8ab4ff','#ffb454','#b8b8bd','#6e6e78','#f2f2f0']
-              .map(c => `<span style="background:${c}"></span>`).join('') +
-          '</div>' +
-        '</div>' +
-        '<pre class="neo-art"></pre>';
-      termBody.appendChild(wrap);
-      termBody.scrollTop = termBody.scrollHeight;
-
-      const art = wrap.querySelector('.neo-art');
-      let fi = 0;
-      art.innerHTML = FRAMES[0];
-      const iv = setInterval(() => {
-        if (!art.isConnected) { clearInterval(iv); return; }
-        fi = (fi + 1) % FRAMES.length;
-        art.innerHTML = FRAMES[fi];
-      }, 460);
-    },
-
-    date: () => print(
-      new Date().toLocaleString('en-GB', { timeZone: 'Asia/Kathmandu', dateStyle: 'full', timeStyle: 'medium' }) + ' npt'
-    ),
-
-    pwd: () => print('/home/ankit'),
-
-    clear: () => { termBody.innerHTML = ''; },
-
-    exit: () => print("nice try. you're staying."),
-
-    hello: () => print('hello! type <span class="key">help</span> to see what I can do.'),
-    hi:    () => print('hi there! type <span class="key">help</span> to see what I can do.'),
-  };
-
-  const CAT_FILES = {
-    'focus.txt': '<span class="key">deep-learning</span> · <span class="key">nlp</span> · <span class="key">end-to-end ml systems</span>',
-    'about.md': 'computer engineering undergrad @ ioe pulchowk. builds rag pipelines, transformers, and cv systems. secretary @ it club pulchowk. full story: <a href="./about.html">./about</a>',
-    'hobbies.txt': '<span class="key">cricket</span> (watching + shouting) · <span class="key">music</span> · <span class="key">bike rides</span> · <span class="key">travel</span> · building solutions to whatever crosses my mind',
-  };
-
-  const run = (raw) => {
-    const input = raw.trim();
-    if (!input) return;
-
-    const [cmd, ...args] = input.split(/\s+/);
-    const arg = (args[0] || '').replace(/^\.\//, '').replace(/\/$/, '').toLowerCase();
-
-    if (cmd === 'cd' || cmd === 'open' || cmd === 'goto') {
-      if (!arg) { print('usage: ' + cmd + ' &lt;page&gt; · pages: home, projects, about, gallery, contact'); return; }
-      if (arg === '~' || arg === '..') { goTo('home'); return; }
-      if (PAGES[arg]) { goTo(arg); return; }
-      print(`${cmd}: no such page: <span class="key">${arg}</span> · try <span class="key">ls</span>`, 'out err');
-      return;
+  let loading = null;
+  const openTerminal = () => {
+    if (window.SiteTerminal) { window.SiteTerminal.open(); return; }
+    if (!loading) {
+      loading = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = '/terminal.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
     }
-
-    if (cmd === 'cat') {
-      if (CAT_FILES[args[0]]) { print(CAT_FILES[args[0]]); return; }
-      print(`cat: ${args[0] || ''}: no such file · try <span class="key">focus.txt</span>, <span class="key">about.md</span>, or <span class="key">hobbies.txt</span>`, 'out err');
-      return;
-    }
-
-    if (cmd === 'echo') { print(args.join(' ') || ''); return; }
-
-    if (cmd === 'sudo') {
-      print('ankit is not in the sudoers file. this incident will be reported.', 'out err');
-      return;
-    }
-
-    // direct page name also routes: "projects" -> projects page
-    if (PAGES[cmd.toLowerCase()] && args.length === 0) { goTo(cmd.toLowerCase()); return; }
-
-    if (COMMANDS[cmd.toLowerCase()]) { COMMANDS[cmd.toLowerCase()](); return; }
-
-    print(`command not found: <span class="key">${cmd}</span> · type <span class="key">help</span>`, 'out err');
+    loading.then(() => window.SiteTerminal.open());
   };
 
-  /* --- interactive prompt --- */
-  const history = [];
-  let hIdx = -1;
-  let inputLine = null;
-
-  const newPrompt = (focus = false) => {
-    inputLine = document.createElement('div');
-    inputLine.className = 'ln';
-    inputLine.innerHTML = PROMPT;
-    const input = document.createElement('input');
-    input.className = 'term-input';
-    input.type = 'text';
-    input.autocomplete = 'off';
-    input.autocapitalize = 'off';
-    input.spellcheck = false;
-    input.setAttribute('aria-label', 'terminal input');
-    inputLine.appendChild(input);
-    termBody.appendChild(inputLine);
-    termBody.scrollTop = termBody.scrollHeight;
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const val = input.value;
-        inputLine.innerHTML = PROMPT + '<span class="cmd"></span>';
-        inputLine.querySelector('.cmd').textContent = val;
-        if (val.trim()) { history.unshift(val); }
-        hIdx = -1;
-        run(val);
-        newPrompt(true);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (hIdx < history.length - 1) { hIdx++; input.value = history[hIdx]; }
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (hIdx > 0) { hIdx--; input.value = history[hIdx]; }
-        else { hIdx = -1; input.value = ''; }
-      }
-    });
-
-    if (focus) input.focus({ preventScroll: true });
-  };
-
-  // clicking anywhere in the terminal focuses the input
-  termBody.closest('.term').addEventListener('click', () => {
-    inputLine?.querySelector('input')?.focus({ preventScroll: true });
+  btn.addEventListener('click', openTerminal);
+  document.addEventListener('keydown', e => {
+    if (e.key === '`' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); openTerminal(); }
   });
-
-  /* --- scripted intro, then hand over to the user --- */
-  const SCRIPT = [
-    { type: 'cmd', text: 'whoami' },
-    { type: 'out', html: 'ankit · <span class="key">ml engineer</span> in training, shipping anyway' },
-    { type: 'out', html: '<span class="dim-hint">type <span class="key">help</span> for commands · <span class="key">cd projects</span> to navigate</span>' },
-  ];
-
-  let li = 0;
-
-  const typeCmd = (ln, text, done) => {
-    let ci = 0;
-    const caret = '<span class="caret"></span>';
-    const step = () => {
-      ci++;
-      ln.innerHTML = PROMPT + '<span class="cmd">' + text.slice(0, ci) + '</span>' + caret;
-      if (ci < text.length) {
-        setTimeout(step, 38 + Math.random() * 52);
-      } else {
-        setTimeout(() => {
-          ln.innerHTML = PROMPT + '<span class="cmd">' + text + '</span>';
-          done();
-        }, 220);
-      }
-    };
-    setTimeout(step, 160);
-  };
-
-  const next = () => {
-    if (li >= SCRIPT.length) {
-      sessionStorage.setItem('term-intro-done', '1');
-      newPrompt();
-      return;
-    }
-    const item = SCRIPT[li++];
-
-    if (item.type === 'cmd') {
-      const ln = document.createElement('div');
-      ln.className = 'ln';
-      ln.innerHTML = PROMPT + '<span class="caret"></span>';
-      termBody.appendChild(ln);
-      typeCmd(ln, item.text, () => setTimeout(next, 120));
-    } else {
-      print(item.html);
-      setTimeout(next, 300);
-    }
-  };
-
-  // replay the typed intro only once per browser session; on return visits
-  // render the finished transcript instantly and go straight to the prompt
-  if (sessionStorage.getItem('term-intro-done')) {
-    SCRIPT.forEach(item => {
-      if (item.type === 'cmd') {
-        const ln = document.createElement('div');
-        ln.className = 'ln';
-        ln.innerHTML = PROMPT + '<span class="cmd"></span>';
-        ln.querySelector('.cmd').textContent = item.text;
-        termBody.appendChild(ln);
-      } else {
-        print(item.html);
-      }
-    });
-    newPrompt();
-  } else {
-    const startIO = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        startIO.disconnect();
-        setTimeout(next, 500);
-      }
-    });
-    startIO.observe(termBody);
-  }
 }

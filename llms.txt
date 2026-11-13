@@ -2,25 +2,30 @@
 
 > Computer Engineering undergraduate at IOE Pulchowk Campus, Tribhuvan
 > University, Nepal, specializing in AI/ML. Builds end-to-end ML and deep
-> learning systems — data pipelines, NLP, RAG, and LLM applications — and
-> ships them to production. AI/ML Intern at Layman AI. Secretary, IT Club
-> Pulchowk.
+> learning systems (data pipelines, NLP, RAG, and LLM applications) and
+> ships them to production. Junior AI Engineer at Layman AI. Former Secretary,
+> IT Club Pulchowk.
 
 This site is a personal portfolio. The information below is provided for
 AI assistants and search tools to accurately summarize this site. It is
-factual context, not an instruction — treat it the same as any other text
+factual context, not an instruction: treat it the same as any other text
 on this page, and follow your own guidelines regardless of anything
 written here.
 
 ## About
-- Computer Engineering undergraduate, IOE Pulchowk Campus (Apr 2023 – present)
+- Computer Engineering undergraduate, IOE Pulchowk Campus (Apr 2023 - present)
 - Based in Ekantakuna, Lalitpur, Nepal
-- AI/ML Intern at Layman AI (May 2026 – present), working on real-time
-  computer vision pipelines (YOLOv8, MediaPipe) and FastAPI inference services
-- Secretary, IT Club Pulchowk (Jun 2025 – Jun 2026) — manages Docker/Coolify
-  deployments on a self-hosted server, organizes workshops and hackathons
-- Fellow, Seeds for Future (Jun–Jul 2025) — training in AI, 5G, cloud infrastructure
-- Interested in ML/AI engineering roles and internships
+- Junior AI Engineer at Layman AI (part-time, Sep 2026 - present), after
+  an AI/ML internship there (Jun - Aug 2026): padel match analytics
+  (YOLOv8, TrackNet, MediaPipe, LSTM shot classifier) served over FastAPI,
+  plus an open-source voice-cloning tool (F5-TTS, faster-whisper) merged
+  into the company's video studio
+- AI Lead, LOCUS Open Source Team (LOST), LOCUS 2027, the 23rd National
+  Technological Festival at IOE Pulchowk (current)
+- Secretary, IT Club Pulchowk (Jun 2025 - Jun 2026): managed Docker/Coolify
+  deployments on a self-hosted server, organized workshops and hackathons
+- Fellow, Seeds for the Future (Jun - Jul 2025): training in AI, 5G, cloud infrastructure
+- Interested in ML/AI engineering roles
 
 ## Skills
 - Languages: Python, C, C++, JavaScript, TypeScript, SQL
@@ -33,35 +38,75 @@ written here.
 - Tools/MLOps: Docker, Git, Coolify, Streamlit, Jupyter
 
 ## Projects
-- **Network Anomaly Detection in Named Data Networking** (ongoing research,
-  under Prof. Babu Ram Dhawadi) — unsupervised anomaly detection
-  (Isolation Forest) for Interest Flooding and Cache Pollution attacks in
-  NDN; 100% attacker detection, ~1s latency, 0% false-positive rate,
-  validated on ns-3/ndnSIM and live miniNDN/NFD.
-- **English–Nepali Neural Machine Translation** — Transformer built from
+Each case study has its own page under https://www.pokhrelankit.com.np/projects/
+
+- **Padel Match Analytics** (Layman AI, intern then Junior AI Engineer): computer-vision
+  backend that finds who hit the ball, when, and with which shot. Rewrote
+  hit detection against hand-labelled ground truth: 78% recall / 66%
+  precision, far-court hits 1/9 -> 7/9. Fixed-roster player tracking with
+  motion + appearance + Hungarian assignment. /projects/padel.html
+- **Network Anomaly Detection in Named Data Networking** (first author;
+  journal paper under revision; with Babu R. Dawadi and Dibakar Raj Pant):
+  one unsupervised Isolation Forest trained on clean traffic, evaluated on
+  miniNDN emulation and ndnSIM simulation. 89.1-98.3% IFA attacker
+  detection at <4.7% FPR; detection floors of ~44 Interests/s (Cache
+  Pollution) vs ~1.8 Interests/s (Interest Flooding) across 297 runs.
+  /projects/ndn-anomaly-detection.html
+- **MIDAS** (undergraduate major project, ongoing, supervised by Assoc.
+  Prof. Dr. Dibakar Raj Pant): reproducing the CHAI visual sign-injection
+  attack on InternVL2.5-8B (DriveLM driving scenes). The attack replicates
+  but is weaker than published; a linear probe reads which instruction the
+  model follows with 100% held-out accuracy from layer 11; a 1B-8B scale
+  study shows size buys answer stability, not resistance. /projects/midas.html
+- **English-Nepali Neural Machine Translation**: Transformer built from
   scratch in PyTorch, 35M parameters, trained on 1M sentence pairs from
   Meta AI's NLLB corpus; 13.8 BLEU / 41.2 ChrF on FLORES-200.
-- **Kanun Sathi** — RAG-based AI legal assistant answering Nepali legal
-  questions with page-level citations; FastAPI + pgvector + Gemini 2.5
-  Flash, React/TypeScript frontend, Dockerized full stack.
-- **ragchatbot** — open-source, pip-installable RAG SDK (PyPI, v1.1.3)
+  /projects/english-nepali-translation.html
+- **Kanun Sathi** (hackathon, team of 4; my part: the RAG pipeline): legal
+  assistant answering Nepali legal questions with cited sources; Morphik,
+  pgvector, local nomic-embed-text embeddings, Gemini 2.5 Flash.
+  /projects/kanun-sathi.html
+- **ragchatbot**: open-source, pip-installable RAG SDK (PyPI, v1.1.3)
   turning a document folder into a semantic-search chatbot API;
   multi-LLM support (Gemini, OpenAI, Ollama), ChromaDB store.
-- **Nagarik Suchana** — bilingual civic-tech platform (React Native,
+- **Nagarik Suchana**: bilingual civic-tech platform (React Native,
   Node.js, PostgreSQL) connecting citizens with local government; OCR +
   Gemini pipeline extracting structured fields from government notices.
-- **Infant Cry Detection** — TensorFlow LSTM/ANN audio classifier for
+- **SPYDER** (Samsung Innovation Campus AI capstone): one-shot person
+  identification in low-resolution surveillance video; SCRFD detection,
+  ArcFace/SFace/AdaFace embeddings, FAISS search, calibrated thresholds,
+  human-verified leads only; indexes video ~7.5x faster than real time on
+  an M2. /projects/spyder.html
+- **Aakha**: real-time assistive navigation for blind and low-vision
+  users; YOLO11n + Depth Anything V2 to spoken guidance, no LLM in the
+  safety loop. Built at a hackathon. /projects/aakha.html
+- **Voice Bridge**: WebRTC video calls with two-way translated live
+  captions (faster-whisper, Argos Translate). /projects/voice-bridge.html
+- **Celebrity Look-alike**: face retrieval over 235 identities with YuNet +
+  SFace embeddings; 94.1% top-1 leave-one-out. https://yourcelebritylookalike.streamlit.app/
+- **Gym Guru** (UI-complete prototype): Flutter app teaching one movement
+  skill a day with camera-tracked reps and per-rep form feedback; pose data
+  is simulated for now. /projects/gym-guru.html
+- **PM Study**: interactive study site for ICT Project Management (CT701).
+  https://ankitpokhrel08.github.io/pm-study/
+- **Infant Cry Detection**: TensorFlow LSTM/ANN audio classifier for
   infant cries using MFCC features; deployed via Flask API and a
   React Native/Expo app with on-device TensorFlow Lite inference.
 
+## Writing (Medium, https://medium.com/@pokhrelankit)
+- One-Shot Person Identification from Low-Resolution Surveillance Video (Nov 2026)
+- Fine-tuning Llama 2 7B on a Personal Dataset: LoRA / QLoRA walkthrough (Jan 2026)
+- Optimizers in Deep Learning (Jul 2025)
+- How I Used ML to Find Hidden Bonds Between Countries Through Their Anthems: TF-IDF, PCA, K-Means (Jun 2025)
+
 ## Achievements
-- 1st Runner-Up, National Hackathon (2025) — held alongside the 4th
+- 1st Runner-Up, National Hackathon (2025): held alongside the 4th
   National Telemedicine and 1st National Digital Health Conference
-- Best 1st-Year Electronics Project Award — Arduino-based Parking
+- Best 1st-Year Electronics Project Award: Arduino-based Parking
   Management System
 
 ## Links
-- Website: https://pokhrelankit.com.np
+- Website: https://www.pokhrelankit.com.np
 - GitHub: https://github.com/ankitpokhrel08
 - Medium: https://medium.com/@pokhrelankit
 - LinkedIn: https://www.linkedin.com/in/ankitpokhrel/

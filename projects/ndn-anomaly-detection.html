@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js')</script>
+  <title>Catching Attacks in Named Data Networking | Ankit Pokhrel</title>
+  <meta name="description" content="One unsupervised Isolation Forest, trained only on clean traffic, that detects two different NDN attacks on emulated and simulated networks." />
+  <link rel="canonical" href="https://www.pokhrelankit.com.np/projects/ndn-anomaly-detection.html" />
+  <meta name="author" content="Ankit Pokhrel" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#f3efe6" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.pokhrelankit.com.np/projects/ndn-anomaly-detection.html" />
+  <meta property="og:title" content="Catching Attacks in Named Data Networking | Ankit Pokhrel" />
+  <meta property="og:description" content="One unsupervised Isolation Forest, trained only on clean traffic, that detects two different NDN attacks on emulated and simulated networks." />
+  <meta property="og:image" content="https://www.pokhrelankit.com.np/assets/projects/ndn-anomaly-detection/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Catching Attacks in Named Data Networking" />
+  <meta property="og:site_name" content="Ankit Pokhrel" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Catching Attacks in Named Data Networking | Ankit Pokhrel" />
+  <meta name="twitter:description" content="One unsupervised Isolation Forest, trained only on clean traffic, that detects two different NDN attacks on emulated and simulated networks." />
+  <meta name="twitter:image" content="https://www.pokhrelankit.com.np/assets/projects/ndn-anomaly-detection/og.jpg" />
+  <meta name="twitter:site" content="@_pokhrelankit" />
+  <meta name="twitter:creator" content="@_pokhrelankit" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://www.pokhrelankit.com.np/projects/ndn-anomaly-detection.html#webpage",
+        "url": "https://www.pokhrelankit.com.np/projects/ndn-anomaly-detection.html",
+        "name": "Catching Attacks in Named Data Networking | Ankit Pokhrel",
+        "isPartOf": {
+          "@id": "https://www.pokhrelankit.com.np/#website"
+        },
+        "mainEntity": {
+          "@id": "https://www.pokhrelankit.com.np/projects/ndn-anomaly-detection.html#work"
+        }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://www.pokhrelankit.com.np/projects/ndn-anomaly-detection.html#work",
+        "name": "Catching Attacks in Named Data Networking",
+        "description": "One unsupervised Isolation Forest, trained only on clean traffic, that detects two different NDN attacks on emulated and simulated networks.",
+        "url": "https://www.pokhrelankit.com.np/projects/ndn-anomaly-detection.html",
+        "image": "https://www.pokhrelankit.com.np/assets/projects/ndn-anomaly-detection/og.jpg",
+        "dateCreated": "2026",
+        "keywords": "Python, scikit-learn, miniNDN + NFD, ns-3 / ndnSIM",
+        "author": {
+          "@id": "https://www.pokhrelankit.com.np/#ankit"
+        },
+        "codeRepository": "https://github.com/ankitpokhrel08/ndn_research_work"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.pokhrelankit.com.np/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Projects",
+            "item": "https://www.pokhrelankit.com.np/projects.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Catching Attacks in Named Data Networking",
+            "item": "https://www.pokhrelankit.com.np/projects/ndn-anomaly-detection.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Devanagari:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="../" class="nav-logo"><span class="tilde">~</span><span class="slash">/</span>ankit</a>
+      <div class="nav-links">
+        <a href="../">home</a>
+        <a href="../projects.html" class="active">projects</a>
+        <a href="../about.html">about</a>
+        <a href="../gallery.html">gallery</a>
+        <a href="../contact.html">contact</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="../">home</a>
+    <a href="../projects.html" class="active">projects</a>
+    <a href="../about.html">about</a>
+    <a href="../gallery.html">gallery</a>
+    <a href="../contact.html">contact</a>
+  </div>
+
+  <main id="main" class="cs article">
+    <a class="art-back" href="../projects.html">← all projects</a>
+    <header class="art-head">
+      <div class="art-kicker">research · journal paper under revision</div>
+      <h1>Catching Attacks in Named Data Networking</h1>
+      <p class="art-sub">One unsupervised Isolation Forest, trained only on clean traffic, that detects two different NDN attacks on emulated and simulated networks.</p>
+      <div class="byline">
+        <img src="../assets/profile.webp" width="44" height="44" alt="" />
+        <div>
+          <div class="by-name">Ankit Pokhrel</div>
+          <div class="by-meta">2 min read<span class="by-dot">·</span>2026<span class="by-dot">·</span><a href="https://github.com/ankitpokhrel08/ndn_research_work" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#github"/></svg>source</a></div>
+        </div>
+      </div>
+    </header>
+
+    <figure class="cs-hero is-light">
+      <button class="zoom" type="button" data-full="../assets/projects/ndn-anomaly-detection/floor-headline.webp" aria-label="Enlarge image: Chart of attacker detection rate against attacker rate for Cache Pollution and Interest Flooding">
+        <img src="../assets/projects/ndn-anomaly-detection/floor-headline.webp" width="1600" height="981" alt="Chart of attacker detection rate against attacker rate for Cache Pollution and Interest Flooding" fetchpriority="high" decoding="async" />
+      </button>
+      <figcaption>The paper's central result: the two attacks' detection floors are an order of magnitude apart.</figcaption>
+    </figure>
+
+    <article class="art-body">
+        <h2>The problem</h2>
+        <p>Named Data Networking fetches content by name instead of talking to a host. Routers cache data and keep state for every pending request, which opens two attacks: <b>Interest Flooding</b>, which floods routers with requests for content that doesn't exist, and <b>Cache Pollution</b>, which fills caches with junk. No single threshold rule catches both. We wanted one detector that does, trained without ever seeing an attack.</p>
+        <h2>What we did</h2>
+        <p>One Isolation Forest, trained only on clean traffic, tested on two independent platforms across the same three topologies (tree, dumbbell and a DFN-style mesh): <b>miniNDN</b>, which emulates the network with the real NDN forwarding daemon, and <b>ndnSIM</b>, an ns-3 simulator. On ndnSIM we swept the attacker's rate across 297 runs to find the slowest attack each one can still be caught at. KS hypothesis tests and feature-ablation studies showed which features actually carry each attack.</p>
+        <figure class="cs-fig is-light">
+          <button class="zoom" type="button" data-full="../assets/projects/ndn-anomaly-detection/topologies.webp" aria-label="Enlarge image: Three network topologies: tree, dumbbell and partial mesh">
+            <img src="../assets/projects/ndn-anomaly-detection/topologies.webp" width="1800" height="504" alt="Three network topologies: tree, dumbbell and partial mesh" loading="lazy" decoding="async" />
+          </button>
+          <figcaption>The three topologies, used on both platforms.</figcaption>
+        </figure>
+        <h2>The textbook signature wasn't there</h2>
+        <p>The standard story says Interest Flooding blows up a router's Pending Interest Table. In our emulation it didn't: PIT size was statistically the same under attack: the forwarder rejects attack requests with NACKs, and the table drains between polls. The signal was in the NACK rate and the satisfaction ratio instead, which corrects the usual picture of this attack.</p>
+        <h2>The hard part: a model that learned failure was normal</h2>
+        <p>Early on the detector caught almost nothing. The model wasn't the problem. <b>22.6% of our "normal" training samples were idle intervals that the logging code recorded as total failure</b>, so the model learned that failure looks normal. With clean data the same model found the attacker 89-98% of the time.</p>
+        <p>A second fix made it robust to load. Absolute rate features flagged busy but healthy traffic as attacks, so we replaced them with ratios.</p>
+        <figure class="cs-fig is-light">
+          <button class="zoom" type="button" data-full="../assets/projects/ndn-anomaly-detection/load-invariance.webp" aria-label="Enlarge image: Bar charts comparing false-positive rate and detection for absolute-rate and ratio features">
+            <img src="../assets/projects/ndn-anomaly-detection/load-invariance.webp" width="1800" height="681" alt="Bar charts comparing false-positive rate and detection for absolute-rate and ratio features" loading="lazy" decoding="async" />
+          </button>
+          <figcaption>Ratio features cut false positives on a busier normal run from 41% to 2%, without losing detection.</figcaption>
+        </figure>
+        <h2>The result: the detection floor</h2>
+        <p>At a realistic false-positive rate of about 2%, Cache Pollution stays detectable down to about <b>44 Interests per second</b> per attacker, while Interest Flooding stays detectable down to about <b>1.8</b>. The floors hold across all three topologies, including ones the model never trained on. Cache Pollution is volumetric, so it has to shout to be seen; Interest Flooding looks different, not just louder.</p>
+        <figure class="cs-fig is-light">
+          <button class="zoom" type="button" data-full="../assets/projects/ndn-anomaly-detection/mechanism.webp" aria-label="Enlarge image: Detection rate against attacker volume as a multiple of legitimate traffic">
+            <img src="../assets/projects/ndn-anomaly-detection/mechanism.webp" width="1600" height="1067" alt="Detection rate against attacker volume as a multiple of legitimate traffic" loading="lazy" decoding="async" />
+          </button>
+          <figcaption>Interest Flooding is caught at roughly normal volume; Cache Pollution needs about ten times it.</figcaption>
+        </figure>
+        <p>So the practical limit of anomaly detection here isn't peak accuracy at one attack rate. It's the floor: how quietly an attacker can operate before the detector loses them. The paper is under revision for a journal.</p>
+    </article>
+
+    <div class="art-foot">
+      <ul class="art-notes">
+          <li><span>role</span> first author: data processing, the detector and the analysis</li>
+          <li><span>authors</span> Ankit Pokhrel, Asmit Phuyal, Darshan Kumar Paudyal, Babu R. Dawadi, Dibakar Raj Pant</li>
+          <li><span>timeline</span> Mar 2026 - present</li>
+        </ul>
+      <ul class="art-tags"><li>Python</li><li>scikit-learn</li><li>miniNDN + NFD</li><li>ns-3 / ndnSIM</li></ul>
+    </div>
+
+    <div class="art-more" role="navigation" aria-label="more case studies">
+      <div class="art-more-label">More from Ankit</div>
+      <a href="padel.html"><span>previous</span>Padel Match Analytics</a>
+      <a href="midas.html"><span>next</span>MIDAS: When a Road Sign Hijacks the Model</a>
+    </div>
+  </main>
+
+  <dialog class="lightbox" aria-label="enlarged image">
+    <button class="lightbox-close" type="button" aria-label="Close">×</button>
+  </dialog>
+
+  <footer>
+    <div class="foot-inner">
+      <span>lalitpur, np</span>
+      <span id="foot-clock"></span>
+      <div class="foot-right">
+        <span>© <span class="foot-year">2026</span> ankit pokhrel</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

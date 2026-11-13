@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js')</script>
+  <title>English to Nepali Translation, From Scratch | Ankit Pokhrel</title>
+  <meta name="description" content="A 35M-parameter Transformer I wrote from the paper up and trained on a laptop, translating everyday English into fluent Nepali." />
+  <link rel="canonical" href="https://www.pokhrelankit.com.np/projects/english-nepali-translation.html" />
+  <meta name="author" content="Ankit Pokhrel" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#f3efe6" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.pokhrelankit.com.np/projects/english-nepali-translation.html" />
+  <meta property="og:title" content="English to Nepali Translation, From Scratch | Ankit Pokhrel" />
+  <meta property="og:description" content="A 35M-parameter Transformer I wrote from the paper up and trained on a laptop, translating everyday English into fluent Nepali." />
+  <meta property="og:image" content="https://www.pokhrelankit.com.np/assets/projects/english-nepali-translation/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="English to Nepali Translation, From Scratch" />
+  <meta property="og:site_name" content="Ankit Pokhrel" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="English to Nepali Translation, From Scratch | Ankit Pokhrel" />
+  <meta name="twitter:description" content="A 35M-parameter Transformer I wrote from the paper up and trained on a laptop, translating everyday English into fluent Nepali." />
+  <meta name="twitter:image" content="https://www.pokhrelankit.com.np/assets/projects/english-nepali-translation/og.jpg" />
+  <meta name="twitter:site" content="@_pokhrelankit" />
+  <meta name="twitter:creator" content="@_pokhrelankit" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://www.pokhrelankit.com.np/projects/english-nepali-translation.html#webpage",
+        "url": "https://www.pokhrelankit.com.np/projects/english-nepali-translation.html",
+        "name": "English to Nepali Translation, From Scratch | Ankit Pokhrel",
+        "isPartOf": {
+          "@id": "https://www.pokhrelankit.com.np/#website"
+        },
+        "mainEntity": {
+          "@id": "https://www.pokhrelankit.com.np/projects/english-nepali-translation.html#work"
+        }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://www.pokhrelankit.com.np/projects/english-nepali-translation.html#work",
+        "name": "English to Nepali Translation, From Scratch",
+        "description": "A 35M-parameter Transformer I wrote from the paper up and trained on a laptop, translating everyday English into fluent Nepali.",
+        "url": "https://www.pokhrelankit.com.np/projects/english-nepali-translation.html",
+        "image": "https://www.pokhrelankit.com.np/assets/projects/english-nepali-translation/og.jpg",
+        "dateCreated": "2026",
+        "keywords": "PyTorch, SentencePiece, Gradio, Hugging Face Spaces",
+        "author": {
+          "@id": "https://www.pokhrelankit.com.np/#ankit"
+        },
+        "codeRepository": "https://github.com/ankitpokhrel08/transformer_implementation"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.pokhrelankit.com.np/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Projects",
+            "item": "https://www.pokhrelankit.com.np/projects.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "English to Nepali Translation, From Scratch",
+            "item": "https://www.pokhrelankit.com.np/projects/english-nepali-translation.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Devanagari:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">skip to content</a>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="../" class="nav-logo"><span class="tilde">~</span><span class="slash">/</span>ankit</a>
+      <div class="nav-links">
+        <a href="../">home</a>
+        <a href="../projects.html" class="active">projects</a>
+        <a href="../about.html">about</a>
+        <a href="../gallery.html">gallery</a>
+        <a href="../contact.html">contact</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="../">home</a>
+    <a href="../projects.html" class="active">projects</a>
+    <a href="../about.html">about</a>
+    <a href="../gallery.html">gallery</a>
+    <a href="../contact.html">contact</a>
+  </div>
+
+  <main id="main" class="cs article">
+    <a class="art-back" href="../projects.html">← all projects</a>
+    <header class="art-head">
+      <div class="art-kicker">deep learning · nlp</div>
+      <h1>English to Nepali Translation, From Scratch</h1>
+      <p class="art-sub">A 35M-parameter Transformer I wrote from the paper up and trained on a laptop, translating everyday English into fluent Nepali.</p>
+      <div class="byline">
+        <img src="../assets/profile.webp" width="44" height="44" alt="" />
+        <div>
+          <div class="by-name">Ankit Pokhrel</div>
+          <div class="by-meta">1 min read<span class="by-dot">·</span>2026<span class="by-dot">·</span><a href="https://huggingface.co/spaces/ankitpokhrel/english-to-nepali" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#arrow-up-right-from-square"/></svg>live demo</a><a href="https://github.com/ankitpokhrel08/transformer_implementation" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="../assets/icons.svg#github"/></svg>source</a></div>
+        </div>
+      </div>
+    </header>
+
+    <figure class="cs-hero is-light">
+      <button class="zoom" type="button" data-full="../assets/projects/english-nepali-translation/demo.webp" aria-label="Enlarge image: The translator on Hugging Face Spaces translating an English sentence into Nepali">
+        <img src="../assets/projects/english-nepali-translation/demo.webp" width="1600" height="438" alt="The translator on Hugging Face Spaces translating an English sentence into Nepali" fetchpriority="high" decoding="async" />
+      </button>
+      <figcaption>My sentence, its real output. The demo sleeps when idle, so give it about a minute to wake.</figcaption>
+    </figure>
+
+    <article class="art-body">
+        <h2>Why build it from scratch</h2>
+        <p>I wanted to understand Transformers by building one with no translation library doing the hard parts: multi-head self and cross attention, sinusoidal positional encodings, the warmup learning-rate schedule, label smoothing. All of it is written by hand in PyTorch.</p>
+        <h2>It started as Sanskrit</h2>
+        <p>The first version translated Sanskrit to English, character by character. Ten epochs took about 18 hours on my M2 Air and produced phonetic mush. Around 80% of the attention compute was being spent on padding.</p>
+        <p>Switching to BPE tokens and length-bucketed batches made epochs <b>about 12x faster</b> and the English fluent, but the scores stayed in single digits. The model wasn't the problem. The corpus was 73k pairs of epic verse with loose, literary translations. In low-resource translation the data is the model, so I moved to a language pair with about 20 times more data and a standard benchmark.</p>
+        <h2>What I built</h2>
+        <ul>
+          <li>An encoder-decoder Transformer: 4 + 4 layers, d_model 384, 8 heads, <b>35.0M parameters</b>.</li>
+          <li>SentencePiece BPE with 16k pieces per language and byte fallback, so no word is ever unknown.</li>
+          <li>Data: NLLB's 19.6M mined English-Nepali pairs, cleaned and cut to the top 1M by LASER score.</li>
+          <li>Training: 6 epochs on an Apple M2 Air, about 2 hours each. Dev loss fell from 9.69 to about 4.55 with no overfitting.</li>
+          <li>Shipped as a Gradio app on Hugging Face Spaces.</li>
+        </ul>
+        <h2>Results</h2>
+        <p>On FLORES-200 devtest (1,012 unseen sentences, greedy decoding): <b>BLEU 13.78, ChrF 41.22</b>. ChrF is the fairer judge here, because Nepali's rich inflection makes BLEU's exact-word matching read low. Its best translations are near-human:</p>
+        <pre class="cs-code">EN  : In remote locations, without cell phone coverage, a satellite phone may be your only option.
+REF : दुर्गम स्थानहरूमा, सेल फोनको कभरेज बिना, उपग्रह फोन तपाईंको एक मात्र विकल्प हुन सक्छ।
+HYP : रिमोट स्थानहरूमा, सेल फोन कभरेज बिना, एक उपग्रह फोन तपाईंको मात्र विकल्प हुन सक्छ।
+      BLEU 55.7 · ChrF 77.9</pre>
+        <figure class="cs-fig is-light">
+          <button class="zoom" type="button" data-full="../assets/projects/english-nepali-translation/bleu-by-length.webp" aria-label="Enlarge image: Bar chart of sentence BLEU by source length bucket">
+            <img src="../assets/projects/english-nepali-translation/bleu-by-length.webp" width="1400" height="761" alt="Bar chart of sentence BLEU by source length bucket" loading="lazy" decoding="async" />
+          </button>
+          <figcaption>Sentence BLEU by source length: steady for everyday sentences, weaker on very short and very long ones.</figcaption>
+        </figure>
+        <p>It still drops rare compound terms and borrows English loanwords like रिमोट where a native word exists. Beam search and more epochs would close part of that gap.</p>
+    </article>
+
+    <div class="art-foot">
+      <ul class="art-notes">
+          <li><span>role</span> solo</li>
+          <li><span>timeline</span> 2025 - 2026</li>
+          <li><span>data</span> NLLB English-Nepali, filtered to the best 1M pairs</li>
+        </ul>
+      <ul class="art-tags"><li>PyTorch</li><li>SentencePiece</li><li>Gradio</li><li>Hugging Face Spaces</li></ul>
+    </div>
+
+    <div class="art-more" role="navigation" aria-label="more case studies">
+      <div class="art-more-label">More from Ankit</div>
+      <a href="spyder.html"><span>previous</span>SPYDER: One Photo, Hours of Footage</a>
+      <a href="aakha.html"><span>next</span>Aakha: Walking Guidance for Blind Users</a>
+    </div>
+  </main>
+
+  <dialog class="lightbox" aria-label="enlarged image">
+    <button class="lightbox-close" type="button" aria-label="Close">×</button>
+  </dialog>
+
+  <footer>
+    <div class="foot-inner">
+      <span>lalitpur, np</span>
+      <span id="foot-clock"></span>
+      <div class="foot-right">
+        <span>© <span class="foot-year">2026</span> ankit pokhrel</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
