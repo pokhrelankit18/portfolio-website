@@ -178,53 +178,89 @@ nav.scrolled { box-shadow: 0 1px 0 var(--line), 0 8px 24px -18px rgba(26, 23, 20
 .nav-links a.active { color: var(--accent); }
 .nav-links a.active::before { color: var(--accent); opacity: 0.5; }
 
-/* hamburger */
+/* menu button: two uneven lines in a soft square, morphs into an X */
 .nav-burger {
   display: none;
-  flex-direction: column;
-  gap: 5px;
-  padding: 6px;
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  transition: border-color 0.2s, transform 0.16s var(--ease-out);
 }
-
+.nav-burger:active { transform: scale(0.94); }
 .nav-burger span {
-  display: block;
-  width: 20px;
-  height: 1.5px;
+  position: absolute;
+  right: 8px;
+  height: 1.6px;
+  border-radius: 2px;
   background: var(--t0);
-  transition: transform 0.25s, opacity 0.25s;
+  transition: transform 0.35s var(--ease-out), width 0.35s var(--ease-out), top 0.35s var(--ease-out);
 }
+.nav-burger span:nth-child(1) { top: 12px; width: 16px; }
+.nav-burger span:nth-child(2) { display: none; }
+.nav-burger span:nth-child(3) { top: 19px; width: 10px; }
+.nav-burger.open span:nth-child(1),
+.nav-burger.open span:nth-child(3) { top: 15.5px; width: 16px; }
+.nav-burger.open span:nth-child(1) { transform: rotate(45deg); }
+.nav-burger.open span:nth-child(3) { transform: rotate(-45deg); }
 
-.nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-.nav-burger.open span:nth-child(2) { opacity: 0; }
-.nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+/* drawer: slides in from the right, under the nav bar, over a dimmed page */
+.nav-scrim {
+  position: fixed;
+  inset: var(--nav-h) 0 0 0;
+  z-index: 98;
+  background: rgba(26, 23, 20, 0.28);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s var(--ease-out), visibility 0s linear 0.3s;
+}
+.nav-scrim.open { opacity: 1; visibility: visible; transition: opacity 0.3s var(--ease-out), visibility 0s; }
 
 .nav-mobile {
-  display: none;
   position: fixed;
   top: var(--nav-h);
-  left: 0;
   right: 0;
+  bottom: 0;
+  width: min(300px, 80vw);
   z-index: 99;
-  background: rgba(243, 239, 230, 0.97);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
-  padding: 10px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 22px 28px;
+  background: var(--bg);
+  border-left: 1px solid var(--line);
+  box-shadow: -18px 0 40px -24px rgba(26, 23, 20, 0.45);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.42s var(--ease-out), visibility 0s linear 0.42s;
 }
-
-.nav-mobile.open { display: block; }
+.nav-mobile.open { transform: none; visibility: visible; transition: transform 0.42s var(--ease-out), visibility 0s; }
+html.menu-open { overflow: hidden; }
 
 .nav-mobile a {
   display: block;
   font-family: var(--mono);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--t1);
-  padding: 12px 6px;
+  padding: 14px 4px;
   border-bottom: 1px solid var(--line);
+  opacity: 0;
+  transform: translateX(18px);
+  transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-out), color 0.2s;
 }
-
+.nav-mobile.open a { opacity: 1; transform: none; }
+.nav-mobile.open a:nth-child(2) { transition-delay: 0.04s; }
+.nav-mobile.open a:nth-child(3) { transition-delay: 0.08s; }
+.nav-mobile.open a:nth-child(4) { transition-delay: 0.12s; }
+.nav-mobile.open a:nth-child(5) { transition-delay: 0.16s; }
 .nav-mobile a::before { content: './'; color: var(--t3); }
 .nav-mobile a.active { color: var(--accent); }
 .nav-mobile a:last-child { border-bottom: none; }
+@media (min-width: 881px) { .nav-mobile, .nav-scrim { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .nav-mobile, .nav-mobile.open, .nav-mobile a, .nav-scrim { transition-duration: 0.01s; transition-delay: 0s !important; }
+}
 
 /* =====================================================
    Layout primitives
@@ -1306,25 +1342,29 @@ footer a:hover { color: var(--accent); }
 
 @media (max-width: 880px) {
   .nav-links { display: none; }
-  .nav-burger { display: flex; }
+  .nav-burger { display: block; }
 
   .hero {
     grid-template-columns: 1fr;
-    gap: 44px;
+    gap: 22px;
     min-height: auto;
     padding-top: 8px;
   }
 
-  /* on mobile the polaroid sits above the terminal instead of overlapping it */
+  /* on mobile the photo sits small, to the right of the name */
+  .hero { position: relative; }
+  .hero-visual { position: absolute; top: 14px; right: 0; width: 116px; z-index: 1; }
+  .hero-hi { padding-right: 132px; }
+  .hero-name { max-width: 7ch; margin-bottom: 20px; }
   .hero-polaroid {
     position: static;
-    width: 124px;
-    margin: 0 auto 18px;
-    transform: rotate(-3deg);
-    padding-bottom: 22px;
+    width: 100%;
+    margin: 0;
+    padding: 6px 6px 7px;
+    transform: rotate(4deg);
   }
-
-  
+  .hero-polaroid::before { width: 44px; height: 14px; top: -7px; }
+  .hero-polaroid figcaption { padding: 6px 2px 0; }
 
 
   .about-layout { grid-template-columns: 1fr; }

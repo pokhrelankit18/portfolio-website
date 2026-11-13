@@ -122,11 +122,22 @@ const burger = document.getElementById('burger');
 const mobileNav = document.getElementById('nav-mobile');
 
 if (burger && mobileNav) {
-  burger.addEventListener('click', () => {
-    const open = mobileNav.classList.toggle('open');
+  const scrim = document.createElement('div');
+  scrim.className = 'nav-scrim';
+  document.body.appendChild(scrim);
+  const setMenu = open => {
+    mobileNav.classList.toggle('open', open);
+    scrim.classList.toggle('open', open);
     burger.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', open);
-  });
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+    document.documentElement.classList.toggle('menu-open', open);
+  };
+  burger.addEventListener('click', () => setMenu(!mobileNav.classList.contains('open')));
+  scrim.addEventListener('click', () => setMenu(false));
+  mobileNav.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  matchMedia('(min-width: 881px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 }
 
 /* ---------- scroll reveal ---------- */
