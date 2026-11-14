@@ -84,9 +84,10 @@ Each case study has its own page under https://www.pokhrelankit.com.np/projects/
   captions (faster-whisper, Argos Translate). /projects/voice-bridge.html
 - **Celebrity Look-alike**: face retrieval over 235 identities with YuNet +
   SFace embeddings; 94.1% top-1 leave-one-out. https://yourcelebritylookalike.streamlit.app/
-- **Gym Guru** (UI-complete prototype): Flutter app teaching one movement
-  skill a day with camera-tracked reps and per-rep form feedback; pose data
-  is simulated for now. /projects/gym-guru.html
+- **TOFU** (Android MVP): Flutter AI trainer that counts reps and checks
+  form on-device with ML Kit pose detection across 6 exercises, with
+  rate-limited voice coaching, 20 levels, and a Firebase-backed global
+  leaderboard. /projects/gym-guru.html
 - **PM Study**: interactive study site for ICT Project Management (CT701).
   https://ankitpokhrel08.github.io/pm-study/
 - **Infant Cry Detection**: TensorFlow LSTM/ANN audio classifier for
